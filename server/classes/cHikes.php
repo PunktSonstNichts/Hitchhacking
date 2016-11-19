@@ -36,18 +36,18 @@ class cHikes {
 	}
     }
 
-    public function deleteHike($hike_id, $deleteArr) {
+    public function deleteMatching($hike_id, $deleteArr) {
 	$this->db->where("hike_id", $hike_id);
-	$result = $this->db->update("hikes", $deleteArr);
+	$result = $this->db->update("matchings", $deleteArr);
 
 	if (!empty($result)) {
 	    return "success";
 	}
     }
 
-    public function acceptHike($hike_id, $acceptArr) {
+    public function acceptMatching($hike_id, $acceptArr) {
 	$this->db->where("hike_id", $hike_id);
-	$result = $this->db->update("hikes", $acceptArr);
+	$result = $this->db->update("matchings", $acceptArr);
 
 	if (!empty($result)) {
 	    return "success";
