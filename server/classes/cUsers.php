@@ -47,5 +47,17 @@ class cUsers {
 	}
 	return $user;
     }
+    
+    public function matchUsers($user_id, $potential_users){
+	$potential_users_arr = explode("|", $potential_users);
+	foreach($potential_users_arr as $p_u){
+	    $this->db->where("u.id", $p_u, "=", "OR");
+	}
+	$this->db->join("cities c", "u.city_living_in=c.id", "LEFT");
+	$this->db->join("tags t_1", "u.tag_1=t_1.tag_id", "LEFT");
+	$this->db->join("tags t_2", "u.tag_2=t_2.tag_id", "LEFT");
+	$this->db->join("tags t_3", "u.tag_3=t_3.tag_id", "LEFT");
+	return $this->db->get("users as u");
+    }
 
 }

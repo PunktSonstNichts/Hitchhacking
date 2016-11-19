@@ -54,4 +54,13 @@ class cHikes {
 	}
     }
 
+    public function getHikerRequests($driver_lat, $driver_lon) {
+
+	return $this->db->query("SELECT *, ( 3959 * acos( cos( radians(" . $driver_lat . ") ) * cos( radians( h.current_lat) ) 
+		    * cos( radians(h.current_lon) - radians(" . $driver_lon . ")) + sin(radians(" . $driver_lat . ")) 
+		    * sin( radians(h.current_lat)))) AS distance FROM hikes h" 
+		    ." HAVING distance < 0.6
+		    ORDER BY distance DESC");
+    }
+
 }
