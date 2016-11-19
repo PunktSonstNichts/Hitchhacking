@@ -24,6 +24,11 @@ class cHikes {
     public function pushHike($insertArr) {
 	$this->db->insert("hikes", $insertArr);
     }
+    
+    public function upgradeHike($hike_id, $upgradeArr) {
+	$this->db->where("hike_id", $hike_id);
+	$this->db->update("hikes", $upgradeArr);
+    }
 }
 
    
