@@ -29,6 +29,11 @@ class cHikes {
 	$this->db->where("hike_id", $hike_id);
 	$this->db->update("hikes", $upgradeArr);
     }
+    
+    public function deleteHike($hike_id, $deleteArr) {
+	$this->db->where("hike_id", $hike_id);
+	$this->db->update("hikes", $deleteArr);
+    }
 }
 
    

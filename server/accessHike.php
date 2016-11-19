@@ -20,6 +20,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' || true) {
 	$arr["last_fetch_timestamp"] = 0;
 	$arr["accepting_timestamp"] = 0;
 	$arr["start_timestamp_server"] = time();
+	$arr["delete_timestamp"] = $_POST["delete_timestamp"];
+	$arr["delete_timestamp_server"] = time();
 	$arr["destination_lat"] = $_POST["destination_lat"];
 	$arr["destination_lon"] = $_POST["destination_lon"];
 	$arr["destination_heading"] = $_POST["destination_heading"];
@@ -32,9 +34,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' || true) {
 	 * TESTDATA
 	 * 
 	 */
-	  $f = "upgradeHike";
+	  $f = "deleteHike";
 	  $hike_id = 2;
-	  $arr["user_id"] = 2;
+	  $arr["user_id"] = 3;
 	  $arr["matched_driver_id"] = 0;
 	  $arr["matching_state"] = 0;
 	  $arr["needed_seats"] = 1;
@@ -43,6 +45,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' || true) {
 	  $arr["last_fetch_timestamp"] = 1479570588;
 	  $arr["accepting_timestamp"] = 0;
 	  $arr["start_timestamp_server"] = time();
+	  $arr["delete_timestamp"] = 24355345345;
+	  $arr["delete_timestamp_server"] = time();
 	  $arr["destination_lat"] = 234.234;
 	  $arr["destination_lon"] = 234.234;
 	  $arr["destination_heading"] = 234.234;
@@ -59,7 +63,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' || true) {
 	} else if ($f == "upgradeHike") {
 	    $updateArr["last_fetch_timestamp"] = $arr["last_fetch_timestamp"];
 	    $returnData = $myHikes->upgradeHike($hike_id, $updateArr);
-	} else {
+	} else if ($f == "deleteHike") {
+	    $deleteArr["delete_timestamp"] = $arr["delete_timestamp"];
+	    $deleteArr["delete_timestamp_server"] = $arr["delete_timestamp_server"];
+	    $returnData = $myHikes->deleteHike($hike_id, $deleteArr);
+	} else if ($f == "deleteHike") {
+	    $deleteArr["delete_timestamp"] = $arr["delete_timestamp"];
+	    $deleteArr["delete_timestamp_server"] = $arr["delete_timestamp_server"];
+	    $returnData = $myHikes->deleteHike($hike_id, $deleteArr);
+	}
+	else {
 	    /*
 	     * Function can not be found
 	     */
