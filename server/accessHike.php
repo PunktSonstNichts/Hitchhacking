@@ -13,12 +13,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' || true) {
 	
 	$arr["user_id"] = $_POST["user_id"];
 	$arr["matched_driver_id"] = 0;
-	$arr["matching_state"] = 0;
 	$arr["needed_seats"] = $_POST["needed_seats"];
 	$arr["security_mode"] =  $_POST["security_mode"];
 	$arr["start_timestamp"] = $_POST["start_timestamp"];
 	$arr["last_fetch_timestamp"] = 0;
 	$arr["accepting_timestamp"] = 0;
+	$arr["accepting_timestamp_server"] = time();
 	$arr["start_timestamp_server"] = time();
 	$arr["delete_timestamp"] = $_POST["delete_timestamp"];
 	$arr["delete_timestamp_server"] = time();
@@ -34,16 +34,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' || true) {
 	 * TESTDATA
 	 * 
 	 */
-	  $f = "deleteHike";
+	  $f = "acceptHike";
 	  $hike_id = 2;
 	  $arr["user_id"] = 3;
-	  $arr["matched_driver_id"] = 0;
-	  $arr["matching_state"] = 0;
+	  $arr["matched_driver_id"] = 2;
 	  $arr["needed_seats"] = 1;
 	  $arr["security_mode"] = 0;
 	  $arr["start_timestamp"] = 12312312324;
 	  $arr["last_fetch_timestamp"] = 1479570588;
-	  $arr["accepting_timestamp"] = 0;
+	  $arr["accepting_timestamp"] = 12313131;
+	  $arr["accepting_timestamp_server"] = time();
 	  $arr["start_timestamp_server"] = time();
 	  $arr["delete_timestamp"] = 24355345345;
 	  $arr["delete_timestamp_server"] = time();
@@ -67,6 +67,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' || true) {
 	    $deleteArr["delete_timestamp"] = $arr["delete_timestamp"];
 	    $deleteArr["delete_timestamp_server"] = $arr["delete_timestamp_server"];
 	    $returnData = $myHikes->deleteHike($hike_id, $deleteArr);
+	}
+	else if ($f == "acceptHike") {
+	    $acceptArr["matched_driver_id"] = $arr["matched_driver_id"];
+	    $acceptArr["accepting_timestamp"] = $arr["accepting_timestamp"];
+	    $acceptArr["accepting_timestamp_server"] = $arr["accepting_timestamp_server"];
+	    $returnData = $myHikes->acceptHike($hike_id, $acceptArr);
 	}
 	else {
 	    /*

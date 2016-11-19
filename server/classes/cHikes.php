@@ -22,19 +22,36 @@ class cHikes {
     }
 
     public function pushHike($insertArr) {
-	$this->db->insert("hikes", $insertArr);
+	$result = $this->db->insert("hikes", $insertArr);
+	if (!empty($result)) {
+	    return "success";
+	}
     }
-    
+
     public function upgradeHike($hike_id, $upgradeArr) {
 	$this->db->where("hike_id", $hike_id);
-	$this->db->update("hikes", $upgradeArr);
+	$result = $this->db->update("hikes", $upgradeArr);
+	if (!empty($result)) {
+	    return "success";
+	}
     }
-    
+
     public function deleteHike($hike_id, $deleteArr) {
 	$this->db->where("hike_id", $hike_id);
-	$this->db->update("hikes", $deleteArr);
-    }
-}
+	$result = $this->db->update("hikes", $deleteArr);
 
-   
-   
+	if (!empty($result)) {
+	    return "success";
+	}
+    }
+
+    public function acceptHike($hike_id, $acceptArr) {
+	$this->db->where("hike_id", $hike_id);
+	$result = $this->db->update("hikes", $acceptArr);
+
+	if (!empty($result)) {
+	    return "success";
+	}
+    }
+
+}

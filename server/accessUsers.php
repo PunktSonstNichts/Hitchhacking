@@ -20,6 +20,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' || true) {
 	if ($f == "loginUsers") {
 	    $returnData = $myUsers->loginUser($email, $password);
 	}
+	/*if ($f == "matchUsers") {
+	    $returnData = $myUsers->loginUser($user_id);
+	}*/
 	else {
 	    /*
 	     * Function can not be found
