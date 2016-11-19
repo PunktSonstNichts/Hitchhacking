@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        tools:context="com.landtanin.hitchhacker.EnterDetailActivity">
+
+<LinearLayout
+
+    android:id="@+id/activity_enter_detail"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="4"/>
+
+
+
+    <EditText
+        android:id="@+id/editTxtUsrName"
+        android:layout_width="@dimen/login_edtTxt_length"
+        android:layout_height="wrap_content"
+        android:hint="username"
+        android:background="@android:drawable/edit_text"
+        android:layout_gravity="center_horizontal"/>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight=".3"/>
+
+
+    <EditText
+        android:id="@+id/editTxtPassWord"
+        android:layout_height="wrap_content"
+        android:layout_width="@dimen/login_edtTxt_length"
+        android:hint="password"
+        android:background="@android:drawable/edit_text"
+        android:layout_gravity="center_horizontal"/>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1.5"/>
+
+    <Button
+        android:layout_width="@dimen/login_signup_btn_length"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:text="OK"
+        android:id="@+id/okBtn"/>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1.5"/>
+
+
+</LinearLayout>
+</layout>

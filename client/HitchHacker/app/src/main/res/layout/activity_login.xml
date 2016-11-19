@@ -24,16 +24,16 @@
         android:layout_weight="6"/>
 
     <Button
-        android:layout_width="190dp"
+        android:layout_width="@dimen/login_signup_btn_length"
         android:layout_height="0dp"
         android:layout_weight="1"
         android:layout_gravity="center_horizontal"
         android:text="login"
-
+        android:id="@+id/loginBtn"
         />
 
     <Button
-        android:layout_width="190dp"
+        android:layout_width="@dimen/login_signup_btn_length"
         android:layout_height="0dp"
         android:layout_weight="1"
         android:layout_marginTop="10dp"

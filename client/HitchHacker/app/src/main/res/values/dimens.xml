@@ -5,4 +5,8 @@
 
     <dimen name="login_title_txt_size">40sp</dimen>
 
+    <dimen name="login_signup_btn_length">190dp</dimen>
+    <dimen name="login_edtTxt_length">190dp</dimen>
+
+
 </resources>
