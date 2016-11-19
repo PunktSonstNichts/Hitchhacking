@@ -8,7 +8,7 @@ include_once "loader.php";
 $requestsSource = $_SERVER['HTTP_REFERER'];
 if ($_SERVER['REQUEST_METHOD'] === 'POST' || true) {
     if ($_POST["api"] == API || true) {
-	$f = "matchUsers";
+	$f =  $_POST["f"];
 	$email = $_POST["email"];
 	$password = $_POST["password"];
 	
