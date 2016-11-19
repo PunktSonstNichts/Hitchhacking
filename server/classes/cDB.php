@@ -9,7 +9,7 @@
  * @author    Alexander V. Butenko <a.butenka@gmail.com>
  * @copyright Copyright (c) 2010-2016
  * @license   http://opensource.org/licenses/gpl-3.0.html GNU Public License
- * @link      http://github.com/joshcam/PHP-MySQLi-Database-Class 
+ * @link      http://github.com/joshcam/PHP-MySQLi-Database-Class
  * @version   2.7-master
  */
 
@@ -87,19 +87,19 @@ class cDB
      * @var array
      */
     protected $_groupBy = array();
-	
+
 	/**
-	 * Dynamic type list for tempromary locking tables. 
+	 * Dynamic type list for tempromary locking tables.
 	 * @var array
 	 */
 	protected $_tableLocks = array();
-	
+
 	/**
 	 * Variable which holds the current table lock method.
 	 * @var string
 	 */
 	protected $_tableLockMethod = "READ";
-	
+
     /**
      * Dynamic array that holds a combination of where condition/table data value types and parameter references
      * @var array
@@ -174,7 +174,7 @@ class cDB
 
     /**
      * Table name (with prefix, if used)
-     * @var string 
+     * @var string
      */
     private $_tableName = '';
 
@@ -263,7 +263,7 @@ class cDB
 
     /**
      * A method to connect to the database
-     * 
+     *
      * @throws Exception
      * @return void
      */
@@ -290,7 +290,7 @@ class cDB
 
     /**
      * A method to get mysqli object or create it in case needed
-     * 
+     *
      * @return mysqli
      */
     public function mysqli()
@@ -383,7 +383,7 @@ class cDB
      * Method to set a prefix
      *
      * @param string $prefix     Contains a tableprefix
-     * 
+     *
      * @return MysqliDb
      */
     public function setPrefix($prefix = '')
@@ -396,12 +396,12 @@ class cDB
 	 * Pushes a unprepared statement to the mysqli stack.
 	 * WARNING: Use with caution.
 	 * This method does not escape strings by default so make sure you'll never use it in production.
-	 * 
+	 *
 	 * @author Jonas Barascu
 	 * @param [[Type]] $query [[Description]]
 	 */
 	private function queryUnprepared($query)
-	{	
+	{
 		// Execute query
 		$stmt = $this->mysqli()->query($query);
 
@@ -409,11 +409,11 @@ class cDB
 		if(!$stmt){
 			throw new Exception("Unprepared Query Failed, ERRNO: ".$this->mysqli()->errno." (".$this->mysqli()->error.")", $this->mysqli()->errno);
 		};
-		
+
 		// return stmt for future use
 		return $stmt;
 	}
-	
+
     /**
      * Execute raw SQL query.
      *
@@ -500,7 +500,7 @@ class cDB
 
     /**
      * A method to perform select query
-     * 
+     *
      * @param string $query   Contains a user-provided select query.
      * @param int|array $numRows Array to define SQL limit in format Array ($count, $offset)
      *
@@ -525,7 +525,7 @@ class cDB
      * @uses $MySqliDb->setQueryOption('name');
      *
      * @param string|array $options The optons name of the query.
-     * 
+     *
      * @throws Exception
      * @return MysqliDb
      */
@@ -597,7 +597,7 @@ class cDB
         $this->_query = 'SELECT ' . implode(' ', $this->_queryOptions) . ' ' .
             $column . " FROM " . $this->_tableName;
         $stmt = $this->_buildQuery($numRows);
-	
+
         if ($this->isSubQuery) {
             return $this;
         }
@@ -616,7 +616,7 @@ class cDB
      *
      * @param string  $tableName The name of the database table to work with.
      * @param string  $columns Desired columns
-     * 
+     *
      * @return array Contains the returned rows from the select query.
      */
     public function getOne($tableName, $columns = '*')
@@ -638,7 +638,7 @@ class cDB
      * A convenient SELECT COLUMN function to get a single column value from one row
      *
      * @param string  $tableName The name of the database table to work with.
-     * @param string  $column    The desired column 
+     * @param string  $column    The desired column
      * @param int     $limit     Limit of rows to select. Use null for unlimited..1 by default
      *
      * @return mixed Contains the value of a returned column / array of values
@@ -840,7 +840,7 @@ class cDB
      *
      * @param array $updateColumns Variable with values
      * @param string $lastInsertId Variable value
-     * 
+     *
      * @return MysqliDb
      */
     public function onDuplicate($updateColumns, $lastInsertId = null)
@@ -865,7 +865,7 @@ class cDB
     {
         return $this->where($whereProp, $whereValue, $operator, 'OR');
     }
-    
+
     /**
      * This method allows you to specify multiple (method chaining optional) AND HAVING statements for SQL queries.
      *
@@ -918,7 +918,7 @@ class cDB
      * @param string $joinTable The name of the table.
      * @param string $joinCondition the condition.
      * @param string $joinType 'LEFT', 'INNER' etc.
-     * 
+     *
      * @throws Exception
      * @return MysqliDb
      */
@@ -939,12 +939,12 @@ class cDB
 
         return $this;
     }
-	
-	
+
+
 	/**
 	 * This is a basic method which allows you to import raw .CSV data into a table
 	 * Please check out http://dev.mysql.com/doc/refman/5.7/en/load-data.html for a valid .csv file.
-	 
+
 	 * @author Jonas Barascu (Noneatme)
 	 * @param string $importTable        The database table where the data will be imported into.
 	 * @param string $importFile         The file to be imported. Please use double backslashes \\ and make sure you
@@ -959,42 +959,42 @@ class cDB
 			throw new Exception("importCSV -> importFile ".$importFile." does not exists!");
 			return;
 		}
-		
+
 		// Define the default values
 		// We will merge it later
 		$settings 				= Array("fieldChar" => ';', "lineChar" => PHP_EOL, "linesToIgnore" => 1);
-		
-		// Check the import settings 
+
+		// Check the import settings
 		if(gettype($importSettings) == "array") {
 			// Merge the default array with the custom one
 			$settings = array_merge($settings, $importSettings);
 		}
-	
+
 		// Add the prefix to the import table
 		$table = self::$prefix . $importTable;
-		
+
 		// Add 1 more slash to every slash so maria will interpret it as a path
-		$importFile = str_replace("\\", "\\\\", $importFile);  
-		
+		$importFile = str_replace("\\", "\\\\", $importFile);
+
 		// Build SQL Syntax
-		$sqlSyntax = sprintf('LOAD DATA INFILE \'%s\' INTO TABLE %s', 
+		$sqlSyntax = sprintf('LOAD DATA INFILE \'%s\' INTO TABLE %s',
 					$importFile, $table);
-		
+
 		// FIELDS
 		$sqlSyntax .= sprintf(' FIELDS TERMINATED BY \'%s\'', $settings["fieldChar"]);
 		if(isset($settings["fieldEnclosure"])) {
 			$sqlSyntax .= sprintf(' ENCLOSED BY \'%s\'', $settings["fieldEnclosure"]);
 		}
-		
+
 		// LINES
 		$sqlSyntax .= sprintf(' LINES TERMINATED BY \'%s\'', $settings["lineChar"]);
 		if(isset($settings["lineStarting"])) {
 			$sqlSyntax .= sprintf(' STARTING BY \'%s\'', $settings["lineStarting"]);
 		}
-			
+
 		// IGNORE LINES
 		$sqlSyntax .= sprintf(' IGNORE %d LINES', $settings["linesToIgnore"]);
-	
+
 		// Exceute the query unprepared because LOAD DATA only works with unprepared statements.
 		$result = $this->queryUnprepared($sqlSyntax);
 
@@ -1002,7 +1002,7 @@ class cDB
 		// Let the user know if the import failed / succeeded
 		return (bool) $result;
 	}
-	
+
 	/**
 	 * This method is usefull for importing XML files into a specific table.
 	 * Check out the LOAD XML syntax for your MySQL server.
@@ -1011,7 +1011,7 @@ class cDB
 	 * @param  string  $importTable    The table in which the data will be imported to.
 	 * @param  string  $importFile     The file which contains the .XML data.
 	 * @param  string  $importSettings An Array defining the import settings as described in the README.md
-	 *                                                                                           
+	 *
 	 * @return boolean Returns true if the import succeeded, false if it failed.
 	 */
 	public function loadXml($importTable, $importFile, $importSettings = null)
@@ -1022,33 +1022,33 @@ class cDB
 			throw new Exception("loadXml: Import file does not exists");
 			return;
 		}
-		
+
 		// Create default values
 		$settings 			= Array("linesToIgnore" => 0);
 
-		// Check the import settings 
+		// Check the import settings
 		if(gettype($importSettings) == "array") {
 			$settings = array_merge($settings, $importSettings);
 		}
 
 		// Add the prefix to the import table
 		$table = self::$prefix . $importTable;
-		
+
 		// Add 1 more slash to every slash so maria will interpret it as a path
-		$importFile = str_replace("\\", "\\\\", $importFile);  
-		
+		$importFile = str_replace("\\", "\\\\", $importFile);
+
 		// Build SQL Syntax
-		$sqlSyntax = sprintf('LOAD XML INFILE \'%s\' INTO TABLE %s', 
+		$sqlSyntax = sprintf('LOAD XML INFILE \'%s\' INTO TABLE %s',
 								 $importFile, $table);
-		
+
 		// FIELDS
 		if(isset($settings["rowTag"])) {
 			$sqlSyntax .= sprintf(' ROWS IDENTIFIED BY \'%s\'', $settings["rowTag"]);
 		}
-			
+
 		// IGNORE LINES
 		$sqlSyntax .= sprintf(' IGNORE %d LINES', $settings["linesToIgnore"]);
-		
+
 		// Exceute the query unprepared because LOAD XML only works with unprepared statements.
 		$result = $this->queryUnprepared($sqlSyntax);
 
@@ -1065,7 +1065,7 @@ class cDB
      * @param string $orderByField The name of the database field.
      * @param string $orderByDirection Order direction.
      * @param array $customFields Fieldset for ORDER BY FIELD() ordering
-     * 
+     *
      * @throws Exception
      * @return MysqliDb
      */
@@ -1113,14 +1113,14 @@ class cDB
         $this->_groupBy[] = $groupByField;
         return $this;
     }
-	
-	
+
+
 	/**
 	 * This method sets the current table lock method.
-	 * 
+	 *
 	 * @author Jonas Barascu
 	 * @param  string   $method The table lock method. Can be READ or WRITE.
-	 *                                                                 
+	 *
 	 * @throws Exception
 	 * @return MysqliDb
 	 */
@@ -1140,13 +1140,13 @@ class cDB
 		}
 		return $this;
 	}
-	
+
 	/**
 	 * Locks a table for R/W action.
-	 * 
+	 *
 	 * @author Jonas Barascu
 	 * @param string  $table The table to be locked. Can be a table or a view.
-	 *                       
+	 *
 	 * @throws Exception
 	 * @return MysqliDb if succeeeded;
 	 */
@@ -1154,7 +1154,7 @@ class cDB
 	{
 		// Main Query
 		$this->_query = "LOCK TABLES";
-		
+
 		// Is the table an array?
 		if(gettype($table) == "array") {
 			// Loop trough it and attach it to the query
@@ -1170,7 +1170,7 @@ class cDB
 		else{
 			// Build the table prefix
 			$table = self::$prefix . $table;
-			
+
 			// Build the query
 			$this->_query = "LOCK TABLES ".$table." ".$this->_tableLockMethod;
 		}
@@ -1178,12 +1178,12 @@ class cDB
 		// Exceute the query unprepared because LOCK only works with unprepared statements.
 		$result = $this->queryUnprepared($this->_query);
         $errno  = $this->mysqli()->errno;
-			
+
 		// Reset the query
 		$this->reset();
 
 		// Are there rows modified?
-		if($result) {	
+		if($result) {
 			// Return true
 			// We can't return ourself because if one table gets locked, all other ones get unlocked!
 			return true;
@@ -1196,11 +1196,11 @@ class cDB
 		// Return the success value
 		return false;
 	}
-	
+
 	/**
 	 * Unlocks all tables in a database.
 	 * Also commits transactions.
-	 * 
+	 *
 	 * @author Jonas Barascu
 	 * @return MysqliDb
 	 */
@@ -1225,13 +1225,13 @@ class cDB
 		else {
 			throw new Exception("Unlocking of tables failed", $errno);
 		}
-		
-	
+
+
 		// Return self
 		return $this;
 	}
 
-	
+
     /**
      * This methods returns the ID of the last inserted item
      *
@@ -1331,7 +1331,7 @@ class cDB
      *
      * @param string $operator
      * @param mixed $value Variable with values
-     * 
+     *
      * @return string
      */
     protected function _buildPair($operator, $value)
@@ -1408,7 +1408,7 @@ class cDB
         $this->_buildOrderBy();
         $this->_buildLimit($numRows);
         $this->_buildOnDuplicate($tableData);
-        
+
         if ($this->_forUpdate) {
             $this->_query .= ' FOR UPDATE';
         }
@@ -1545,7 +1545,7 @@ class cDB
 
     /**
      * Abstraction method that will build an JOIN part of the query
-     * 
+     *
      * @return void
      */
     protected function _buildJoinOld()
@@ -1563,7 +1563,7 @@ class cDB
                 $joinStr = $joinTable;
             }
 
-            $this->_query .= " " . $joinType . " JOIN " . $joinStr . 
+            $this->_query .= " " . $joinType . " JOIN " . $joinStr .
                 (false !== stripos($joinCondition, 'using') ? " " : " on ")
                 . $joinCondition;
         }
@@ -1571,11 +1571,11 @@ class cDB
 
     /**
      * Insert/Update query helper
-     * 
+     *
      * @param array $tableData
      * @param array $tableColumns
      * @param bool $isInsert INSERT operation flag
-     * 
+     *
      * @throws Exception
      */
     public function _buildDataPairs($tableData, $tableColumns, $isInsert)
@@ -1659,7 +1659,7 @@ class cDB
 
     /**
      * Abstraction method that will build an INSERT or UPDATE part of the query
-     * 
+     *
      * @param array $tableData
      */
     protected function _buildInsertQuery($tableData)
@@ -1687,7 +1687,7 @@ class cDB
 
     /**
      * Abstraction method that will build the part of the WHERE conditions
-     * 
+     *
      * @param string $operator
      * @param array $conditions
      */
@@ -1787,7 +1787,7 @@ class cDB
      *
      * @param int|array $numRows Array to define SQL limit in format Array ($count, $offset)
      *                               or only $count
-     * 
+     *
      * @return void
      */
     protected function _buildLimit($numRows)
@@ -1826,7 +1826,7 @@ class cDB
 
     /**
      * Close connection
-     * 
+     *
      * @return void
      */
     public function __destruct()
@@ -1843,7 +1843,7 @@ class cDB
 
     /**
      * Referenced data array is required by mysqli since PHP 5.3+
-     * 
+     *
      * @param array $arr
      *
      * @return array
@@ -1865,7 +1865,7 @@ class cDB
 
     /**
      * Function to replace ? with variables from bind variable
-     * 
+     *
      * @param string $str
      * @param array $vals
      *
@@ -1946,7 +1946,7 @@ class cDB
         $this->reset();
         return $val;
     }
-        
+
     /* Helper functions */
 
     /**
@@ -2007,9 +2007,9 @@ class cDB
 
     /**
      * Method generates incremental function call
-     * 
+     *
      * @param int $num increment by int or float. 1 by default
-     * 
+     *
      * @throws Exception
      * @return array
      */
@@ -2023,9 +2023,9 @@ class cDB
 
     /**
      * Method generates decrimental function call
-     * 
+     *
      * @param int $num increment by int or float. 1 by default
-     * 
+     *
      * @return array
      */
     public function dec($num = 1)
@@ -2038,9 +2038,9 @@ class cDB
 
     /**
      * Method generates change boolean function call
-     * 
+     *
      * @param string $col column name. null by default
-     * 
+     *
      * @return array
      */
     public function not($col = null)
@@ -2050,10 +2050,10 @@ class cDB
 
     /**
      * Method generates user defined function call
-     * 
+     *
      * @param string $expr user function body
      * @param array $bindParams
-     * 
+     *
      * @return array
      */
     public function func($expr, $bindParams = null)
@@ -2063,9 +2063,9 @@ class cDB
 
     /**
      * Method creates new mysqlidb object for a subquery generation
-     * 
+     *
      * @param string $subQueryAlias
-     * 
+     *
      * @return MysqliDb
      */
     public static function subQuery($subQueryAlias = "")
@@ -2145,7 +2145,7 @@ class cDB
      *
      * @param bool $enabled Enable execution time tracking
      * @param string $stripPrefix Prefix to strip from the path in exec log
-     * 
+     *
      * @return MysqliDb
      */
     public function setTrace($enabled, $stripPrefix = null)
@@ -2197,9 +2197,9 @@ class cDB
 
     /**
      * Return result as an associative array with $idField field value used as a record key
-     * 
+     *
      * Array Returns an array($k => $v) if get(.."param1, param2"), array ($k => array ($v, $v)) otherwise
-     * 
+     *
      * @param string $idField field name to use for a mapped element key
      *
      * @return MysqliDb
