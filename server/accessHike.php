@@ -67,10 +67,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' || true) {
 	    $deleteArr["delete_timestamp"] = $arr["delete_timestamp"];
 	    $deleteArr["delete_timestamp_server"] = $arr["delete_timestamp_server"];
 	    $returnData = $myHikes->deleteHike($hike_id, $deleteArr);
-	} else if ($f == "deleteHike") {
-	    $deleteArr["delete_timestamp"] = $arr["delete_timestamp"];
-	    $deleteArr["delete_timestamp_server"] = $arr["delete_timestamp_server"];
-	    $returnData = $myHikes->deleteHike($hike_id, $deleteArr);
 	}
 	else {
 	    /*
