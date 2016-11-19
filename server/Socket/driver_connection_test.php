@@ -11,7 +11,6 @@ class driverThread extends Thread {
   private $first_lat;
   private $first_long;
   private $bearing;
-  private $index = 0;
   private $match = false;
 
   private $myHikes;
@@ -23,8 +22,6 @@ class driverThread extends Thread {
   }
 
   public function run() {
-    $output = "Test";
-    while($connected == 1) {
       if(!$match) {
         $msg = socket_read($client, 10000, PHP_NORMAL_READ) or die("Could not read message");
         if($index == 0) {
@@ -39,9 +36,7 @@ class driverThread extends Thread {
             }
           }
         }
-        $index++;
       }
-    }
 
   }
 
@@ -72,23 +67,4 @@ class driverThread extends Thread {
 
 }
 
-
-$host = "127.0.0.1";
-$port = 1234;
-
-$socket = socket_create(AF_INET, SOCK_STREAM, SOL_TCP) or die("Could not create a new socket\n");
-$result = socket_bind($socket, $host, $port) or die("Could not bind to socket\n");
-$result = socket_listen($socket, SOMAXCONN);
-
-echo "Socket gestartet";
-while(true) {
-  $newClient = socket_accept($socket) or die("Could not accept incoming connection\n");
-    echo "Driver connected";
-    $output = "Test";
-    socket_write($newClient, $output."\n", strlen($output) + 1) or die("Could not write output\n");
-
-    // $driver = new driverThread($newClient);
-    // $driver->start();
-}
-socket_close($socket);
  ?>
