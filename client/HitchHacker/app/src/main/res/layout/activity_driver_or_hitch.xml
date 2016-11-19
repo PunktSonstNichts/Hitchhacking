@@ -27,6 +27,7 @@
 
 
     <ImageView
+        android:id="@+id/driveImg"
         android:layout_width="@dimen/drive_or_hitch_icon_size"
         android:layout_height="@dimen/drive_or_hitch_icon_size"
         android:layout_gravity="center_horizontal"
@@ -38,10 +39,11 @@
         android:layout_height="0dp"/>
 
     <ImageView
+        android:id="@+id/hitchHikeImg"
         android:layout_width="@dimen/drive_or_hitch_icon_size"
         android:layout_height="@dimen/drive_or_hitch_icon_size"
         android:layout_gravity="center_horizontal"
-        android:src="@drawable/hitchHikeBlack2"/>
+        android:src="@drawable/hitch_hike_black"/>
 
     <View
         android:layout_width="match_parent"
