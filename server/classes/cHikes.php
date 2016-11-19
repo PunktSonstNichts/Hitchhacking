@@ -21,9 +21,10 @@ class cHikes {
 	}
     }
 
-    public function pushHike() {
-	$this->db->query("INSERT ");
+    public function pushHike($insertArr) {
+	$this->db->insert("hikes", $insertArr);
     }
+}
 
    
    

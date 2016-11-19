@@ -2,9 +2,9 @@
 
 define("CONNECTION_HOST", "localhost");
 define("USERNAME", "root");
-define("PASSWORD", "");
+define("PASSWORD", "123456");
 define("DB", "Hitchhiking");
 
-define("API", "1232jb23kjqejh2JWJFfkhwf2ifwbaJLFwf2zfwkbf");
+define("API", "qwffelfkefnrnrflnfelnlnefrenlfrewr234ef");
 
 ?>
