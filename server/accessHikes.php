@@ -9,7 +9,7 @@ $requestsSource = $_SERVER['HTTP_REFERER'];
 if ($_SERVER['REQUEST_METHOD'] === 'POST' || true) {
     if ($_POST["api"] == API || true) {
 	$api = $_POST["api"];
-	$f = $_POST["f"];
+	$f = "getHikerRequests";//$_POST["f"];
 	$hike_id = $_POST["hike_id"];
 	
 	$driver_geo["lat"] = $_POST["driver_lat"];
@@ -38,7 +38,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' || true) {
 	/*
 	 * TESTDATA
 	 * 
-	 *
+	 */
 	  
 	  $driver_geo["lat"] = 52.375892;
 	  $driver_geo["lon"] = 9.732010;
