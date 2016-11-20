@@ -41,7 +41,7 @@
                 android:layout_height="wrap_content"/>
 
             <TextView
-                android:id="@+id/txtEditOrSave"
+                android:id="@+id/txtHitchDone"
                 android:layout_width="0dp"
                 android:textAlignment="center"
                 android:layout_gravity="center_horizontal|center_vertical"
@@ -54,17 +54,112 @@
 
     </android.support.v7.widget.Toolbar>
 
-    <!--<EditText-->
-        <!--android:id="@+id/???????????_txt"-->
-        <!--android:textColor="@color/colorGrey"-->
-        <!--android:layout_width="match_parent"-->
+    <EditText
+        android:id="@+id/destination_txt"
+        android:textColor="@color/colorGrey"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/list_padding"
+        android:hint="Enter your destination"
+        android:textSize="@dimen/user_preferences_text_size"
+        android:imeOptions="actionNext"
+        android:singleLine="true"
+        />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/list_padding"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:text="Seats"
+            android:textSize="18dp"
+            android:textStyle="bold"
+            android:textColor="@color/colorBlack"/>
+
+          <TextView
+              android:layout_marginLeft="8dp"
+              android:id="@+id/seat_number_txt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:text="1"
+                    android:textSize="18dp"
+                    android:textStyle="bold"
+                    android:textColor="@color/colorBlack"/>
+
+        <ImageButton
+            android:id="@+id/minusBtn"
+            android:layout_marginLeft="10dp"
+            android:src="@drawable/ic_action_minus"
+            android:layout_width="@dimen/plus_minus_seats_size_btn"
+            android:layout_height="@dimen/plus_minus_seats_size_btn"/>
+
+        <ImageButton
+            android:id="@+id/plusBtn"
+            android:src="@drawable/ic_action_add"
+            android:layout_width="@dimen/plus_minus_seats_size_btn"
+            android:layout_height="@dimen/plus_minus_seats_size_btn"/>
+
+        <!--<Spinner-->
+        <!--android:id="@+id/seats_select_spinner"-->
+        <!--android:layout_width="70dp"-->
+        <!--android:layout_marginLeft="15dp"-->
         <!--android:layout_height="wrap_content"-->
-        <!--android:padding="@dimen/list_padding"-->
-        <!--android:hint="Name"-->
-        <!--android:textSize="@dimen/user_preferences_text_size"-->
-        <!--android:imeOptions="actionNext"-->
-        <!--android:singleLine="true"-->
+        <!--android:padding="18dp"-->
         <!--/>-->
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/list_padding"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:text="Security Mode"
+            android:textSize="18dp"
+            android:textStyle="bold"
+            android:textColor="@color/colorBlack"/>
+
+        <Switch
+            android:layout_width="wrap_content"
+            android:id="@+id/swtch_secure"
+            android:padding="@dimen/list_padding"
+            android:layout_height="wrap_content"/>
+
+
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/latTxt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:textSize="18dp"
+        android:layout_marginRight="40dp"
+        android:textStyle="bold"
+        android:textColor="@color/colorBlack"/>
+
+    <TextView
+        android:id="@+id/lngTxt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:textSize="18dp"
+        android:textStyle="bold"
+        android:textColor="@color/colorBlack"/>
+
+
 
 
 </LinearLayout>

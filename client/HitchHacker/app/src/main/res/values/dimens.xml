@@ -16,4 +16,6 @@
     <dimen name="list_padding">17dp</dimen>
     <dimen name="user_preferences_text_size">16sp</dimen>
 
+    <dimen name="plus_minus_seats_size_btn">50dp</dimen>
+
 </resources>

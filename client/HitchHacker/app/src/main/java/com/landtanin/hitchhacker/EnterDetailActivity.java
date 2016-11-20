@@ -1,8 +1,6 @@
 package com.landtanin.hitchhacker;
 
-import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.databinding.DataBindingUtil;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -10,7 +8,6 @@ import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
-import android.widget.Toast;
 
 import com.landtanin.hitchhacker.databinding.ActivityEnterDetailBinding;
 
@@ -47,11 +44,8 @@ public class EnterDetailActivity extends AppCompatActivity {
 
                 connectDatabase();
 
-//                saveApiKey();
                 PreferenceManager.getDefaultSharedPreferences(getBaseContext()).edit().putString("shareAPI", strApiKey).commit();
-                Log.d("apiCLICK", strApiKey);
-
-                Toast.makeText(EnterDetailActivity.this, "onClick", Toast.LENGTH_SHORT).show();
+//                Toast.makeText(EnterDetailActivity.this, "onClick", Toast.LENGTH_SHORT).show();
 
                 Intent objIntent = new Intent(EnterDetailActivity.this, driverOrHitchActivity.class);
                 startActivity(objIntent);
@@ -61,60 +55,6 @@ public class EnterDetailActivity extends AppCompatActivity {
 
     }
 
-    private void saveApiKey() {
-
-        SharedPreferences sharedPref = this.getPreferences(Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor = sharedPref.edit();
-        editor.putString("asdf", strApiKey);
-        editor.commit();
-
-    }
-
-//    // HTTP POST request
-//    private void sendPost() throws Exception {
-//
-//        String url = "http://10.232.29.59/Hitchhacking/Hitchhacking/server/accessUsers.php";
-//        URL obj = new URL(url);
-//        HttpsURLConnection con = (HttpsURLConnection) obj.openConnection();
-//
-//        //add request header
-//        con.setRequestMethod("POST");
-//        con.setRequestProperty("User-Agent", USER_AGENT);
-//        con.setRequestProperty("Accept-Language", "en-US,en;q=0.5");
-//
-//        String urlParameters = "anything";
-//
-//        // Send post request
-//        con.setDoOutput(true);
-//        DataOutputStream wr = new DataOutputStream(con.getOutputStream());
-//        wr.writeBytes(urlParameters);
-//        wr.flush();
-//        wr.close();
-//
-//        int responseCode = con.getResponseCode();
-////        System.out.println("\nSending 'POST' request to URL : " + url);
-////        System.out.println("Post parameters : " + urlParameters);
-////        System.out.println("Response Code : " + responseCode);
-//
-//        Log.d("1","Sending 'POST' request to URL : " + url);
-//        Log.d("2","Post parameters : " + urlParameters);
-//        Log.d("3","Response Code : " + responseCode);
-//
-//        BufferedReader in = new BufferedReader(
-//                new InputStreamReader(con.getInputStream()));
-//        String inputLine;
-//        StringBuffer response = new StringBuffer();
-//
-//        while ((inputLine = in.readLine()) != null) {
-//            response.append(inputLine);
-//        }
-//        in.close();
-//
-//        //print result
-////        System.out.println(response.toString());
-//        Log.d("RESULT", response.toString());
-//
-//    }
 
     private void connectDatabase() {
 
@@ -196,6 +136,7 @@ public class EnterDetailActivity extends AppCompatActivity {
             protected void onPostExecute(String s) {
 
 //                recyclerAdapter.notifyDataSetChanged();
+                PreferenceManager.getDefaultSharedPreferences(getBaseContext()).edit().putString("shareAPI", strApiKey).commit();
 
                 super.onPostExecute(s);
             }
