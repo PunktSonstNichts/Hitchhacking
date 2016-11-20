@@ -16,6 +16,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/imageView"
+        android:layout_marginTop="40dp"
+        android:layout_marginBottom="40dp"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:src="@drawable/cast_ic_expanded_controller_play"/>

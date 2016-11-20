@@ -55,6 +55,18 @@
 
     </android.support.v7.widget.Toolbar>
 
+    <Spinner
+        android:id="@+id/hitchhike_select_spinner"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:padding="18dp"
+        />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.2dp"
+        android:background="@color/colorBlack"/>
+
     <EditText
         android:id="@+id/destination_txt"
         android:textColor="@color/colorGrey"

@@ -3,12 +3,15 @@ package com.landtanin.hitchhacker.Driver;
 import android.content.Intent;
 import android.location.Location;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
+import android.widget.ArrayAdapter;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.landtanin.hitchhacker.JSONObtained;
@@ -41,6 +44,30 @@ public class DriverSettingActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_driver_setting);
+
+        // ----------------Spinner-Start----------------
+
+        final Spinner staticSpinner = (Spinner) findViewById(R.id.event_type_select_spinner);
+
+        // Create an ArrayAdapter using the string array and a default spinner
+        ArrayAdapter<CharSequence> typeSelectAdapter = ArrayAdapter
+                .createFromResource(this, R.array.event_type_array,
+                        android.R.layout.simple_spinner_item);
+
+        // Specify the layout to use when the list of choices appears
+        typeSelectAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+        // Apply the adapter to the spinner
+        staticSpinner.setAdapter(typeSelectAdapter);
+
+//        Toast.makeText(this, String.valueOf(staticSpinner.getId()), Toast.LENGTH_SHORT).show();
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N_MR1) {
+            staticSpinner.setRevealOnFocusHint(true);
+        }
+
+
+        // ----------------Spinner-End----------------
 
         txtDriverDone = (TextView) findViewById(R.id.txtDriverDone);
 

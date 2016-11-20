@@ -6,6 +6,7 @@ import android.content.pm.PackageManager;
 import android.location.Location;
 import android.location.LocationManager;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -13,10 +14,13 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.Spinner;
 import android.widget.Switch;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
@@ -87,6 +91,30 @@ public class HitchHikePreferenceActivity extends AppCompatActivity implements On
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_hitch_hike_preference);
 
+        // ----------------Spinner-Start----------------
+
+        final Spinner staticSpinner = (Spinner) findViewById(R.id.hitchhike_select_spinner);
+
+        // Create an ArrayAdapter using the string array and a default spinner
+        ArrayAdapter<CharSequence> typeSelectAdapter = ArrayAdapter
+                .createFromResource(this, R.array.event_type_array,
+                        android.R.layout.simple_spinner_item);
+
+        // Specify the layout to use when the list of choices appears
+        typeSelectAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+        // Apply the adapter to the spinner
+        staticSpinner.setAdapter(typeSelectAdapter);
+
+//        Toast.makeText(this, String.valueOf(staticSpinner.getId()), Toast.LENGTH_SHORT).show();
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N_MR1) {
+            staticSpinner.setRevealOnFocusHint(true);
+        }
+
+
+        // ----------------Spinner-End----------------
+
         // map
         mGoogleApiClient = new GoogleApiClient.Builder(this)
                 .addConnectionCallbacks(this)
@@ -134,6 +162,8 @@ public class HitchHikePreferenceActivity extends AppCompatActivity implements On
 
                 Intent objIntent = new Intent(HitchHikePreferenceActivity.this, RecordVoice3.class);
                 startActivity(objIntent);
+                Toast.makeText(HitchHikePreferenceActivity.this, "Waiting for matching with drivers", Toast.LENGTH_SHORT).show();
+
             }
         });
 
