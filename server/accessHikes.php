@@ -32,13 +32,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' || true) {
 	$arr["current_lat"] = $_POST["current_lat"];
 	$arr["current_lon"] = $_POST["current_lon"];
 	$arr["current_name"] = $_POST["current_name"];
+	
+	$driver_id = $_POST["matchedDrivers"];
 
 	/*
 	 * TESTDATA
 	 * 
 	 */
 	  $f = "getHikerRequests";
-	  $hike_id = 3;
+	  $hike_id = 9;
 	  
 	  $driver_geo["lat"] = 52.375892;
 	  $driver_geo["lon"] = 9.732010;
@@ -61,6 +63,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' || true) {
 	  $arr["current_lat"] = 345.34;
 	  $arr["current_lon"] = 345.35;
 	  $arr["current_name"] = "pittsburg"; /**/
+	  
+	$driver_id = "3";
+	$matched_hikes = array(1,9,11);
 
 	$myHikes = new cHikes();
 	$returnData = null;
@@ -69,12 +74,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' || true) {
 	    $returnData = $myHikes->pushHike($arr);
 	} else if ($f == "upgradeHike") {
 	    $updateArr["last_fetch_timestamp"] = $arr["last_fetch_timestamp"];
-	    $returnData = $myHikes->upgradeHike($hike_id, $updateArr);
-	} else if ($f == "deleteHike") {
-	    $deleteArr["delete_timestamp"] = $arr["delete_timestamp"];
-	    $deleteArr["delete_timestamp_server"] = $arr["delete_timestamp_server"];
-	    $returnData = $myHikes->deleteMatching($hike_id, $deleteArr);
-	}
+	    $returnData = $myHikes->hearbeatHike($hike_id, $updateArr);
+	} 
 	else if ($f == "acceptHikeHiker") {
 	    $acceptArr["timestamp_hiker"] = $matchingArr["timestamp_hiker"];
 	    $acceptArr["timestamp_hiker_server"] = $matchingArr["timestamp_hiker_server"];
@@ -83,10 +84,31 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' || true) {
 	else if ($f == "acceptHikeDriver") {
 	    $acceptArr["timestamp_driver"] = $matchingArr["timestamp_driver"];
 	    $acceptArr["timestamp_driver_server"] = $matchingArr["timestamp_driver_server"];
+	    $cancelArr["active"] = 0;
+	    
 	    $returnData = $myHikes->acceptMatching($hike_id, $acceptArr);
+	}
+	else if ($f == "cancelHikeDriver") {
+	    $cancelArr["timestamp_driver"] = 0;
+	    $cancelArr["timestamp_driver_server"] = 0;
+	    $cancelArr["active"] = 0;
+	    
+	    $cancelHikeArr["match_proposed"] = 0;
+	    $returnData = $myHikes->cancelMatching($hike_id, $cancelArr, $cancelHikeArr);
+	}
+	else if ($f == "cancelHikeHiker") {
+	    $cancelArr["timestamp_hiker"] = 0;
+	    $cancelArr["timestamp_hiker_server"] = 0;
+	    $cancelArr["active"] = 0;
+	    
+	    $cancelHikeArr["match_proposed"] = 0;
+	    $returnData = $myHikes->cancelMatching($hike_id, $cancelArr, $cancelHikeArr);
 	}
 	else if ($f == "getHikerRequests") {
 	    $returnData = $myHikes->getHikerRequests($driver_geo["lat"], $driver_geo["lon"]);
+	}
+	else if ($f == "submitMatchings") {
+	    $returnData = $myHikes->submitMatchings($driver_id, $matched_hikes);
 	}
 	else {
 	    /*
