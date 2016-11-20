@@ -19,7 +19,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' || true) {
 	$matchingArr["timestamp_driver"] = $_POST["timestamp_driver"];
 	$matchingArr["timestamp_driver_server"] = time();
 
-	$arr["user_id"] = $_POST["user_id"];
 	$arr["needed_seats"] = $_POST["needed_seats"];
 	$arr["security_mode"] =  $_POST["security_mode"];
 	$arr["start_timestamp"] = $_POST["start_timestamp"];
@@ -50,7 +49,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' || true) {
 	  $matchingArr["timestamp_driver"] = 12313131;
 	  $matchingArr["timestamp_driver_server"] = time();
 	
-	  $arr["user_id"] = 3;
 	  $arr["needed_seats"] = 1;
 	  $arr["security_mode"] = 0;
 	  $arr["start_timestamp"] = 12312312324;
@@ -71,7 +69,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' || true) {
 	$returnData = null;
 
 	if ($f == "pushHike") {
-	    $returnData = $myHikes->pushHike($arr);
+	    $returnData = $myHikes->pushHike($apiKey, $arr);
 	} else if ($f == "upgradeHike") {
 	    $updateArr["last_fetch_timestamp"] = $arr["last_fetch_timestamp"];
 	    $returnData = $myHikes->hearbeatHike($hike_id, $updateArr);

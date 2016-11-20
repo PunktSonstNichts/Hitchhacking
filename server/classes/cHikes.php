@@ -21,8 +21,13 @@ class cHikes {
 	}
     }
 
-    public function pushHike($insertArr) {
+    public function pushHike($api, $insertArr) {
+	$this->db->where("api", $api);
+	$user = $this->db->get("users", 1);
+	$insertArr["user_id"] = $user[0]["id"];
+	if(!empty($user)){
 	$result = $this->db->insert("hikes", $insertArr);
+	}
 	if (!empty($result)) {
 	    return "success";
 	}
