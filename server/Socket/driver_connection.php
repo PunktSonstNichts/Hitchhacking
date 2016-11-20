@@ -4,7 +4,7 @@ include_once("../loader.php");
 
 set_time_limit(0);
 
-class driverThread {
+class driverThread extends Thread {
 
   private $client;
   private $connected;
@@ -65,19 +65,19 @@ class driverThread {
    return (rad2deg(atan2($dLon, $dPhi)) + 360) % 360;
  }
 
- private function getMiddleValue($prevbearing, $currbearing, ++$count) {
-   return (($count-1)$prevbearing + 1 * $currbearing) / $count;
+ private function getMiddleValue($prevbearing, $currbearing, $count) {
+   return ((($count-1)*$prevbearing + 1 * $currbearing) / $count);
  }
 
 
 }
 
-public Socket {
+class Socket {
 
-  $host = "127.0.0.1";
-  $port = 1234;
-  $socket;
-  $result;
+  private $host = "10.232.29.59";
+  private $port = 1234;
+  private $socket;
+  private $result;
 
 public function __construct() {
   $this->socket = socket_create(AF_INET, SOCK_STREAM, SOL_TCP) or die("Could not create a new socket\n");
@@ -92,8 +92,8 @@ public function run() {
     $output = "Test";
     socket_write($newClient, $output."\n", strlen($output) + 1) or die("Could not write output\n");
 
-    // $driver = new driverThread($newClient);
-    // $driver->start();
+    $driver = new driverThread($newClient);
+    $driver->start();
   }
 }
 

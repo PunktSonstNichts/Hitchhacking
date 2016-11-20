@@ -11,14 +11,49 @@
     android:orientation="vertical"
     >
 
-    <TextView
+    <android.support.v7.widget.Toolbar
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Drive of HitchHike"
-        android:textAlignment="center"
-        android:layout_marginTop="24dp"
-        android:textSize="@dimen/choosing_title_txt_size"/>
+        android:layout_height="?actionBarSize"
+        android:background="@color/colorPrimary"
+        android:elevation="4dp"
+        >
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="?actionBarSize"
+            android:layout_marginRight="13dp"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="0dp"
+                android:layout_weight="0.15"
+                android:src="@drawable/hitch_hike_black"
+                android:layout_height="match_parent"/>
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:text="Drive or Hitchhike"
+                android:textStyle="bold"
+                android:textSize="@dimen/status_bar_text_size"
+                android:textColor="@color/colorBlack"
+                android:textAlignment="center"
+                android:layout_gravity="center_horizontal|center_vertical"
+                android:layout_height="wrap_content"/>
+
+            <TextView
+                android:id="@+id/txtHitchDone"
+                android:layout_width="0dp"
+                android:textAlignment="center"
+                android:layout_gravity="center_horizontal|center_vertical"
+                android:layout_weight="0.15"
+                android:textColor="@color/colorBlack"
+                android:text="done"
+                android:layout_height="wrap_content"/>
+
+        </LinearLayout>
+
+    </android.support.v7.widget.Toolbar>
     <View
         android:layout_width="match_parent"
         android:layout_weight="1.5"
@@ -30,15 +65,18 @@
         android:id="@+id/driveImg"
         android:layout_width="@dimen/drive_or_hitch_icon_size"
         android:layout_height="@dimen/drive_or_hitch_icon_size"
+        android:layout_marginBottom="40dp"
         android:layout_gravity="center_horizontal"
-        android:src="@drawable/car"/>
+        android:src="@drawable/new_car"/>
 
     <View
         android:layout_width="match_parent"
-        android:layout_weight="1"
-        android:layout_height="0dp"/>
+        android:background="@color/colorBlack"
+        android:layout_margin="10dp"
+        android:layout_height="0.2dp"/>
 
     <ImageView
+        android:layout_marginTop="40dp"
         android:id="@+id/hitchHikeImg"
         android:layout_width="@dimen/drive_or_hitch_icon_size"
         android:layout_height="@dimen/drive_or_hitch_icon_size"
