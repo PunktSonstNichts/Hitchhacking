@@ -7,21 +7,70 @@
     android:orientation="vertical"
     android:id="@+id/activity_login"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/colorPrimary">
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/app_name"
+        android:text="HITCH HACKING"
+        android:textStyle="bold"
         android:textAlignment="center"
         android:textSize="@dimen/login_title_txt_size"
-        android:layout_marginTop="20dp"
-        android:textColor="@color/colorPrimaryDark"/>
+        android:layout_marginTop="40dp"
+        android:textColor="@color/colorBlack"/>
 
-    <View
+    <!--<android.support.v7.widget.Toolbar-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="?actionBarSize"-->
+        <!--android:background="@color/colorPrimary"-->
+        <!--android:elevation="4dp"-->
+        <!--&gt;-->
+
+        <!--<LinearLayout-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="?actionBarSize"-->
+            <!--android:layout_marginRight="13dp"-->
+            <!--android:orientation="horizontal">-->
+
+            <!--<View-->
+                <!--android:layout_width="0dp"-->
+                <!--android:layout_weight="0.30"-->
+                <!--android:layout_height="match_parent"/>-->
+
+            <!--<TextView-->
+                <!--android:layout_width="0dp"-->
+                <!--android:layout_weight="1"-->
+                <!--android:text="Welcome"-->
+                <!--android:textStyle="bold"-->
+                <!--android:textSize="@dimen/status_bar_text_size"-->
+                <!--android:textColor="@color/colorBlack"-->
+                <!--android:textAlignment="center"-->
+                <!--android:layout_gravity="center_horizontal|center_vertical"-->
+                <!--android:layout_height="wrap_content"/>-->
+
+            <!--<TextView-->
+                <!--android:id="@+id/txtDone"-->
+                <!--android:layout_width="0dp"-->
+                <!--android:textAlignment="center"-->
+                <!--android:layout_gravity="center_horizontal|center_vertical"-->
+                <!--android:layout_weight="0.30"-->
+                <!--android:textColor="@color/colorBlack"-->
+                <!--android:text="done"-->
+                <!--android:layout_height="wrap_content"/>-->
+
+        <!--</LinearLayout>-->
+
+    <!--</android.support.v7.widget.Toolbar>-->
+
+    <ImageView
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="6"/>
+        android:layout_weight="6"
+        android:padding="80dp"
+        android:src="@drawable/hitch_hike_black"/>
+
+
 
     <Button
         android:layout_width="@dimen/login_signup_btn_length"
@@ -29,6 +78,7 @@
         android:layout_weight="1"
         android:layout_gravity="center_horizontal"
         android:text="login"
+        android:background="@color/colorPrimaryDark"
         android:id="@+id/loginBtn"
         />
 
@@ -39,6 +89,8 @@
         android:layout_marginTop="10dp"
         android:layout_gravity="center_horizontal"
         android:text="sign up"
+        android:textColor="@color/colorPrimaryDark"
+        android:background="@color/colorBlack"
         android:layout_marginBottom="70dp"
         />
 

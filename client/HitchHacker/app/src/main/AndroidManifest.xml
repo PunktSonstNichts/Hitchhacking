@@ -30,6 +30,10 @@
         </activity>
         <activity android:name=".driverOrHitchActivity">
         </activity>
+        <activity android:name=".Driver.DriverSettingActivity">
+        </activity>
+        <activity android:name=".HitchHiker.HitchHikePreferenceActivity">
+        </activity>
     </application>
 
 </manifest>
