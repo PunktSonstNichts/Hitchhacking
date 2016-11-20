@@ -206,17 +206,17 @@ public class HitchHikePreferenceActivity extends AppCompatActivity implements On
 
                 Log.d("HitchHikeResponse", String.valueOf(response));
                 //-----------TODO:cancel the comment---------
-//
-//                try {
-//
-//                    resultServer = response.body().string();
-//
-//                } catch (IOException e) {
-//                    e.printStackTrace();
-//                }
-//
-//                //TODO: get the API key
-//                Log.d("hitchHikeREsult", resultServer);
+
+                try {
+
+                    resultServer = response.body().string();
+
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
+                //TODO: get the API key
+                Log.d("hitchHikeREsult", resultServer);
                 //--------TODO:cancel the comment---------
 
 

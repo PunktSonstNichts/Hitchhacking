@@ -11,6 +11,10 @@ import android.view.View;
 
 import com.landtanin.hitchhacker.databinding.ActivityEnterDetailBinding;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.IOException;
 
 import okhttp3.FormBody;
@@ -97,35 +101,35 @@ public class EnterDetailActivity extends AppCompatActivity {
 
                 Log.d("CONNECTDATABASE", String.valueOf(response));
 
-//                try {
-//
-//                    resultServer = response.body().string();
-//
-//                } catch (IOException e) {
-//                    e.printStackTrace();
-//                }
+                try {
+
+                    resultServer = response.body().string();
+
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
 
                 //TODO: get the API key
-//                Log.d("RESULTSERVER", resultServer);
-//                try {
-//
-//                    JSONObject someJSONObj = null;
-////                    JSONObject apiJSONstr = new JSONObject(resultServer);
-//
-//
-//                    JSONArray array = new JSONArray(resultServer);
-//                    someJSONObj = array.getJSONObject(0);
+                Log.d("RESULTSERVER", resultServer);
+                try {
+
+                    JSONObject someJSONObj = null;
+//                    JSONObject apiJSONstr = new JSONObject(resultServer);
+
+
+                    JSONArray array = new JSONArray(resultServer);
+                    someJSONObj = array.getJSONObject(0);
+                    strApiKey = someJSONObj.getString("api");
+
+                    Log.d("APIKEY", strApiKey);
+//                    someJSONObj = apiJSONstr.getJSONObject();
 //                    strApiKey = someJSONObj.getString("api");
-//
-//                    Log.d("APIKEY", strApiKey);
-////                    someJSONObj = apiJSONstr.getJSONObject();
-////                    strApiKey = someJSONObj.getString("api");
-//
-//
-//                } catch (JSONException e) {
-//
-//                    e.printStackTrace();
-//                }
+
+
+                } catch (JSONException e) {
+
+                    e.printStackTrace();
+                }
 
                 return null;
             }

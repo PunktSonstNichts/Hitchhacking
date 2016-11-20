@@ -39,10 +39,6 @@
         </activity>
         <activity android:name=".MainActivity">
         </activity>
-        <activity android:name=".HitchHiker.RecordVoiceActivity">
-        </activity>
-        <activity android:name=".HitchHiker.RecordVoice2">
-        </activity>
         <activity android:name=".HitchHiker.RecordVoice3">
         </activity>
     </application>
