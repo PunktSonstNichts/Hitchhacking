@@ -200,8 +200,8 @@ public class HitchHikePreferenceActivity extends AppCompatActivity implements On
 //        desHeading = mLastLocation.bearingTo(desLoc);
 
         // get Api key
-        strLat = "55";
-        strLong = "0";
+        strLat = "51.760372";
+        strLong = "-1.262584";
 
         final RequestBody formBody = new FormBody.Builder()
                 .add("f", "pushHike")

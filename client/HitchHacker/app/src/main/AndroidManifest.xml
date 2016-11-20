@@ -42,6 +42,8 @@
         </activity>
         <activity android:name=".Driver.DriverModeActivity">
         </activity>
+        <activity android:name=".Driver.DriverMapToHitchActivity">
+        </activity>
     </application>
 
 </manifest>

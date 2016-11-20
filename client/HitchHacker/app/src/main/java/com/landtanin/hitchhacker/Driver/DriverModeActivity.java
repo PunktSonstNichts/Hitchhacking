@@ -2,6 +2,7 @@ package com.landtanin.hitchhacker.Driver;
 
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.location.LocationListener;
@@ -127,7 +128,7 @@ public class DriverModeActivity extends AppCompatActivity {
                     public void run() {
                         try {
                             Log.d("LOOP", "New Loop");
-                            if(location != null) {
+                            if(location != null && someJSONObj == null) {
                                 Log.d("Request", "Location to request is there");
                                 AsynchRequest performBackgroundTask = new AsynchRequest();
                                 // PerformBackgroundTask this class is the class that extends AsynchTask
@@ -173,44 +174,53 @@ public class DriverModeActivity extends AppCompatActivity {
                 JSONArray array = new JSONArray(resultServer);
                 someJSONObj = array.getJSONObject(0);
                 // TODO Successfull or not?
-                if (someJSONObj!=null) {
-
-                    mAlertDialog = new AlertDialog.Builder(DriverModeActivity.this);
-
-                    mAlertDialog.setMessage("A new person matched").setTitle("Woohoo!");
-
-                    mAlertDialog.setPositiveButton("ACCEPT", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialogInterface, int i) {
 
 
-
-                        }
-                    });
-
-                    mAlertDialog.setNegativeButton("DECLINE", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialogInterface, int i) {
-
-
-
-                        }
-                    });
-
-                    AlertDialog dialog = mAlertDialog.create();
-
-//                            if (apiJSONstr!=null) {
-//                                dialog.show();
-//                            }
-
-
-                }
 
 
             } catch (Exception e) {
                 e.printStackTrace();
             }
             return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            super.onPostExecute(aVoid);
+
+            mAlertDialog = new AlertDialog.Builder(DriverModeActivity.this);
+
+            mAlertDialog.setMessage("A new person matched \n name : Alex").setTitle("Woohoo!");
+
+            mAlertDialog.setPositiveButton("ACCEPT", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialogInterface, int i) {
+
+                    Intent objIntent = new Intent(DriverModeActivity.this, DriverMapToHitchActivity.class);
+                    startActivity(objIntent);
+
+                }
+            });
+
+            mAlertDialog.setNegativeButton("DECLINE", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialogInterface, int i) {
+
+                    someJSONObj = null;
+                }
+
+            });
+
+
+            AlertDialog dialog = mAlertDialog.create();
+
+            if (someJSONObj!=null) {
+
+                dialog.show();
+
+
+            }
+
         }
     }
 }
