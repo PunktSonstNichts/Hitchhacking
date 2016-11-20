@@ -4,7 +4,7 @@ include_once("../loader.php");
 
 set_time_limit(0);
 
-class driverThread {
+class driverThread extends Thread {
 
   private $client;
   private $connected;
@@ -78,6 +78,7 @@ class Socket {
   private $port = 1234;
   private $socket;
   private $result;
+  private $driver[];
 
 public function __construct() {
   $this->socket = socket_create(AF_INET, SOCK_STREAM, SOL_TCP) or die("Could not create a new socket\n");
@@ -92,8 +93,8 @@ public function run() {
     $output = "Test";
     socket_write($newClient, $output."\n", strlen($output) + 1) or die("Could not write output\n");
 
-    // $driver = new driverThread($newClient);
-    // $driver->start();
+    $driver = new driverThread($newClient);
+    $driver->start();
   }
 }
 
