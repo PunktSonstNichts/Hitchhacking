@@ -142,13 +142,6 @@
 
     </LinearLayout>
 
-    <Button
-        android:id="@+id/recBtb"
-        android:layout_width="@dimen/login_signup_btn_length"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:text="Record"/>
-
 
 
     <!--<fragment xmlns:android="http://schemas.android.com/apk/res/android"-->

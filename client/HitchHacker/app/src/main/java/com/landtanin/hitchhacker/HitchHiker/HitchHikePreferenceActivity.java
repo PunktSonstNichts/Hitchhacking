@@ -1,11 +1,10 @@
 package com.landtanin.hitchhacker.HitchHiker;
 
 import android.Manifest;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.location.LocationManager;
-import android.media.MediaPlayer;
-import android.media.MediaRecorder;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -81,11 +80,9 @@ public class HitchHikePreferenceActivity extends AppCompatActivity implements On
     private static final String LOG_TAG = "AudioRecordTest";
     private static String mFileName = null;
 
-    private RecordButton mRecordButton = null;
-    private MediaRecorder mRecorder = null;
 
-    private PlayButton   mPlayButton = null;
-    private MediaPlayer mPlayer = null;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -137,8 +134,11 @@ public class HitchHikePreferenceActivity extends AppCompatActivity implements On
 
                 connectDatabase();
 
+                Intent objIntent = new Intent(HitchHikePreferenceActivity.this, RecordVoiceActivity.class);
+                startActivity(objIntent);
             }
         });
+
 
     }
 
@@ -331,7 +331,9 @@ public class HitchHikePreferenceActivity extends AppCompatActivity implements On
     }
 
 
-
-
 }
+
+
+
+
 
