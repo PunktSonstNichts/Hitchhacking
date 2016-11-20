@@ -45,6 +45,14 @@ class cUsers {
 	return $user;
     }
 
+    public function editUserProfile($api, $profileArr) {
+	$this->db->where("api", $api);
+	$result = $this->db->update($profileArr);
+	if (!empty($result)) {
+	    return "success";
+	}
+    }
+
     public function matchUsers($api, $potential_users) {
 	$potential_users_arr = explode("|", $potential_users);
 	foreach ($potential_users_arr as $p_u) {
