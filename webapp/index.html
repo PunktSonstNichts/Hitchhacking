@@ -1,0 +1,61 @@
+<html>
+<head>
+  <link rel="stylesheet" type="text/css" href="css/framework.css" />
+  <link rel="stylesheet" type="text/css" href="css/loginview.css" />
+  <link rel="stylesheet" type="text/css" href="css/driver.css" />
+  <script type="text/javascript" src="js/external/jquery/jquery-2.2.3.min.js"></script>
+  <script type="text/javascript" src="js/main.js"></script>
+</head>
+<body>
+<div id="auth_page" data-view="auth">
+  <div class="auth_frame">
+    <span style="font-weight: bold; font-size: 1.2em; text-align: center;">Welcome to Hitchhacking</span>
+    <div id="auth_interaction">
+      <button id="login">login</button>
+      <button id="register">register</button>
+    </div>
+  </div>
+</div>
+<div id="login_page" data-view="login">
+  <div class="auth_frame">
+    <div style="text-align: center;">
+      <div style="font-weight: bold; font-size: 1.2em;">Welcome to Hitchhacking</div>
+      <span>Login to your Profile</span>
+    </div>
+    <form action="accessUsers.php" id="loginform">
+      <input type="text" name="email" placeholder="email" data-advancedinput="The E-Mail, you registered with"/>
+      <input type="password" name="password" placeholder="Your Password"/>
+      <button type="submit">Login</button>
+    </form>
+  </div>
+</div>
+<div id="DriverOrHiker" data-view="DriverOrHiker">
+  <div style="width: 80vw; text-align: center;">
+    <span style="font-size: 1.5em;">Hello, <span data-content="username"></span>!</span></br>
+    <span>Are you a HitchHiker or a Driver?</span>
+  </div>
+  <div id="select_hitchhiker">
+    <div id="hitchhicker_btn">I wanna take a ride</div>
+  </div>
+  <div id="select_driver">
+    <div id="driver_btn">I am driving</div>
+  </div>
+</div>
+
+
+<div id="driverView" data-view="driver">
+<div id="res_set">
+</div>
+<div id="driver_pos">
+<div id="driver_point">
+</div>
+<span>the black box is you. Tap to go to home.</span>
+</div>
+</div>
+<script type="text/javascript">
+$(document).ready(function(){
+  app.init();
+});
+</script>
+</body>
+</html>

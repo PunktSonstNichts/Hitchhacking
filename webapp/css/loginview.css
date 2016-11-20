@@ -1,0 +1,55 @@
+.auth_frame {
+    display: flex;
+    flex-direction: column;
+    width: 80vw;
+    height: 80vh;
+    margin: 10vh 10vw;
+    justify-content: space-around;
+}
+#auth_interaction{
+    display: flex;
+    flex-direction: column;
+}
+#auth_interaction > button{
+margin: 1vmin;
+}
+button#login{
+background-color: #ffc21c;
+color: black;
+}
+button#register{
+  color: #ffc21c;
+  background-color: black;
+}
+
+form#loginform{
+    display: flex;
+    flex-direction: column;
+}
+#DriverOrHiker{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    height: 100vh;
+}
+#hitchhicker_btn, #driver_btn{
+  width: 30vw;
+  height: 30vw;
+  border-radius: 100%;
+  background-color: grey;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 5vmin;
+  font-size: bold;
+}
+#hitchhicker_btn{
+  color: #ffc21c;
+  background-color: black;
+}
+#driver_btn{
+  background-color: #ffc21c;
+  color: black;
+}
