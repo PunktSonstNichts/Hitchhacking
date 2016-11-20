@@ -1,9 +1,12 @@
 package com.landtanin.hitchhacker;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.databinding.DataBindingUtil;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
@@ -30,7 +33,6 @@ public class EnterDetailActivity extends AppCompatActivity {
 
     private String resultServer, strApiKey = "";
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,15 +47,26 @@ public class EnterDetailActivity extends AppCompatActivity {
 
                 connectDatabase();
 
+//                saveApiKey();
+                PreferenceManager.getDefaultSharedPreferences(getBaseContext()).edit().putString("shareAPI", strApiKey).commit();
+                Log.d("apiCLICK", strApiKey);
+
                 Toast.makeText(EnterDetailActivity.this, "onClick", Toast.LENGTH_SHORT).show();
-                Log.d("API", strApiKey);
 
                 Intent objIntent = new Intent(EnterDetailActivity.this, driverOrHitchActivity.class);
-                objIntent.putExtra("api_key", strApiKey);
                 startActivity(objIntent);
 
             }
         });
+
+    }
+
+    private void saveApiKey() {
+
+        SharedPreferences sharedPref = this.getPreferences(Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPref.edit();
+        editor.putString("asdf", strApiKey);
+        editor.commit();
 
     }
 
@@ -162,7 +175,6 @@ public class EnterDetailActivity extends AppCompatActivity {
 //                    JSONObject apiJSONstr = new JSONObject(resultServer);
 
 
-
                     JSONArray array = new JSONArray(resultServer);
                     someJSONObj = array.getJSONObject(0);
                     strApiKey = someJSONObj.getString("api");
@@ -172,12 +184,10 @@ public class EnterDetailActivity extends AppCompatActivity {
 //                    strApiKey = someJSONObj.getString("api");
 
 
-
                 } catch (JSONException e) {
 
                     e.printStackTrace();
                 }
-
 
                 return null;
             }

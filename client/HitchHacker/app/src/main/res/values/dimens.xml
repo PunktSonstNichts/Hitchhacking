@@ -13,5 +13,7 @@
 
     <dimen name="drive_or_hitch_icon_size">130dp</dimen>
 
+    <dimen name="list_padding">17dp</dimen>
+    <dimen name="user_preferences_text_size">16sp</dimen>
 
 </resources>

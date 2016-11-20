@@ -9,6 +9,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:background="@color/colorPrimary"
     >
 
     <TextView
@@ -31,7 +32,7 @@
         android:layout_width="@dimen/drive_or_hitch_icon_size"
         android:layout_height="@dimen/drive_or_hitch_icon_size"
         android:layout_gravity="center_horizontal"
-        android:src="@drawable/car"/>
+        android:src="@drawable/new_car"/>
 
     <View
         android:layout_width="match_parent"
