@@ -134,7 +134,7 @@ public class HitchHikePreferenceActivity extends AppCompatActivity implements On
 
                 connectDatabase();
 
-                Intent objIntent = new Intent(HitchHikePreferenceActivity.this, RecordVoiceActivity.class);
+                Intent objIntent = new Intent(HitchHikePreferenceActivity.this, RecordVoice2.class);
                 startActivity(objIntent);
             }
         });

@@ -5,6 +5,7 @@
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
     <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.RECORD_AUDIO"/>
 
     <uses-library android:name="com.google.android.maps"/>
 
@@ -36,6 +37,8 @@
         <activity android:name=".MainActivity">
         </activity>
         <activity android:name=".HitchHiker.RecordVoiceActivity">
+        </activity>
+        <activity android:name=".HitchHiker.RecordVoice2">
         </activity>
     </application>
 
