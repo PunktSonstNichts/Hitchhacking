@@ -29,8 +29,6 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import com.landtanin.hitchhacker.JSONObtained;
 import com.landtanin.hitchhacker.R;
 
-import org.json.JSONObject;
-
 import java.io.IOException;
 import java.sql.Timestamp;
 
@@ -134,7 +132,7 @@ public class HitchHikePreferenceActivity extends AppCompatActivity implements On
 
                 connectDatabase();
 
-                Intent objIntent = new Intent(HitchHikePreferenceActivity.this, RecordVoice2.class);
+                Intent objIntent = new Intent(HitchHikePreferenceActivity.this, RecordVoice3.class);
                 startActivity(objIntent);
             }
         });
@@ -207,19 +205,22 @@ public class HitchHikePreferenceActivity extends AppCompatActivity implements On
 
 
                 Log.d("HitchHikeResponse", String.valueOf(response));
+                //-----------TODO:cancel the comment---------
+//
+//                try {
+//
+//                    resultServer = response.body().string();
+//
+//                } catch (IOException e) {
+//                    e.printStackTrace();
+//                }
+//
+//                //TODO: get the API key
+//                Log.d("hitchHikeREsult", resultServer);
+                //--------TODO:cancel the comment---------
 
-                try {
 
-                    resultServer = response.body().string();
-
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-
-                //TODO: get the API key
-                Log.d("hitchHikeREsult", resultServer);
-
-                JSONObject someJSONObj = null;
+//                JSONObject someJSONObj = null;
 //                    JSONObject apiJSONstr = new JSONObject(resultServer);
 
 

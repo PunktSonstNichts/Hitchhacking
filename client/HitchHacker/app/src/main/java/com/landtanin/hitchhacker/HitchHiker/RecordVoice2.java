@@ -87,6 +87,8 @@ public class RecordVoice2 extends Activity implements View.OnClickListener, OnCo
             startRecording.setEnabled(true);
 
         } else if (v == startRecording) {
+            recorder = new MediaRecorder(); // add
+
             recorder.setAudioSource(MediaRecorder.AudioSource.MIC);
             recorder.setOutputFormat(MediaRecorder.OutputFormat.THREE_GPP);
             recorder.setAudioEncoder(MediaRecorder.AudioEncoder.AMR_NB);
@@ -94,7 +96,7 @@ public class RecordVoice2 extends Activity implements View.OnClickListener, OnCo
             File path = new File(Environment.getExternalStorageDirectory().getAbsolutePath()+"/dsf.3gp");
             Log.d(Environment.getExternalStorageDirectory().getAbsolutePath(), "Yea!");
             try {
-                //audioFile = File.createTempFile("recordings123", ".3gp", path);
+//                audioFile = File.createTempFile("recordings123", ".3gp", path);
                 Log.d(path.getAbsolutePath(), "Works!");
                 recorder.setOutputFile(path.getAbsolutePath());
                 recorder.prepare();
