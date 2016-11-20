@@ -39,6 +39,7 @@ public class DriverModeActivity extends AppCompatActivity {
     static Location location;
     private boolean permissionsGranted = false;
     private static JSONObject someJSONObj;
+    Timer loopTimer;
 
     AlertDialog.Builder mAlertDialog;
 
@@ -52,6 +53,7 @@ public class DriverModeActivity extends AppCompatActivity {
             @Override
             public void onLocationChanged(Location location) {
                 DriverModeActivity.location = location;
+                Log.d("LOCATION", "Location found");
             }
             @Override
             public void onStatusChanged(String s, int i, Bundle bundle) {
@@ -67,8 +69,6 @@ public class DriverModeActivity extends AppCompatActivity {
         startLocationUpdate();
 
         callAsynchronRequester();
-
-
 
     }
 
@@ -117,37 +117,49 @@ public class DriverModeActivity extends AppCompatActivity {
     }
     private void callAsynchronRequester() {
         final Handler handler = new Handler();
-        Timer timer = new Timer();
+        loopTimer = new Timer();
         TimerTask doAsynchronousTask = new TimerTask() {
             @Override
             public void run() {
                 handler.post(new Runnable() {
                     public void run() {
                         try {
-                            AsynchRequest performBackgroundTask = new AsynchRequest();
-                            // PerformBackgroundTask this class is the class that extends AsynchTask
-                            performBackgroundTask.execute();
+                            Log.d("LOOP", "New Loop");
+                            if(location != null) {
+                                Log.d("Request", "Location to request is there");
+                                AsynchRequest performBackgroundTask = new AsynchRequest();
+                                // PerformBackgroundTask this class is the class that extends AsynchTask
+                                performBackgroundTask.execute();
+                            }
                         } catch (Exception e) {
                             // TODO Auto-generated catch block
+                            Log.d("LOOP Error", e.getMessage().toString());
                         }
                     }
                 });
             }
         };
-        timer.schedule(doAsynchronousTask, 0, 50000);
+        Log.d("LOOP", "Start Test Loop");
+        loopTimer.schedule(doAsynchronousTask, 0, 1000);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        loopTimer.cancel();
     }
 
     private class AsynchRequest extends AsyncTask<Void, Void, Void> {
         @Override
         protected Void doInBackground(Void... voids) {
-            final HttpUrl myurl = HttpUrl.parse(JSONObtained.getAbsoluteUrl("accessDriver.php")).newBuilder().build();
+            final HttpUrl myurl = HttpUrl.parse(JSONObtained.getAbsoluteUrl("accessHikes.php")).newBuilder().build();
             // TODO
             String api = PreferenceManager.getDefaultSharedPreferences(getBaseContext()).getString("shareAPI", "");
             final RequestBody formBody = new FormBody.Builder()
-                    .add("f", "loginUser")
+                    .add("f", "getHikerRequests")
                     .add("api", api)
-                    .add("lat", location.getLatitude()+"")
-                    .add("long", location.getLongitude()+"").build();
+                    .add("driver_lat", location.getLatitude()+"")
+                    .add("driver_lon", location.getLongitude()+"").build();
             Response response = null;
             String resultServer;
             try {
