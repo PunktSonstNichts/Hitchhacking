@@ -8,7 +8,8 @@ include_once "loader.php";
 $requestsSource = $_SERVER['HTTP_REFERER'];
 if ($_SERVER['REQUEST_METHOD'] === 'POST' || true) {
     if ($_POST["api"] == API || true) {
-	$apiKey = $_POST["api"];
+	$api = $_POST["api"];
+	$f = $_POST["f"];
 	$hike_id = $_POST["hike_id"];
 	
 	$driver_geo["lat"] = $_POST["driver_lat"];
@@ -19,7 +20,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' || true) {
 	$matchingArr["timestamp_driver"] = $_POST["timestamp_driver"];
 	$matchingArr["timestamp_driver_server"] = time();
 
-	$arr["user_id"] = $_POST["user_id"];
 	$arr["needed_seats"] = $_POST["needed_seats"];
 	$arr["security_mode"] =  $_POST["security_mode"];
 	$arr["start_timestamp"] = $_POST["start_timestamp"];
@@ -38,9 +38,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' || true) {
 	/*
 	 * TESTDATA
 	 * 
-	 */
-	  $f = "getHikerRequests";
-	  $hike_id = 9;
+	 *
 	  
 	  $driver_geo["lat"] = 52.375892;
 	  $driver_geo["lon"] = 9.732010;
@@ -50,7 +48,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' || true) {
 	  $matchingArr["timestamp_driver"] = 12313131;
 	  $matchingArr["timestamp_driver_server"] = time();
 	
-	  $arr["user_id"] = 3;
 	  $arr["needed_seats"] = 1;
 	  $arr["security_mode"] = 0;
 	  $arr["start_timestamp"] = 12312312324;
@@ -62,7 +59,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' || true) {
 	  $arr["destination_name"] = "london";
 	  $arr["current_lat"] = 345.34;
 	  $arr["current_lon"] = 345.35;
-	  $arr["current_name"] = "pittsburg"; /**/
+	  $arr["current_name"] = "pittsburg"; /*
+	 */
 	  
 	$driver_id = "3";
 	$matched_hikes = array(1,9,11);
@@ -71,7 +69,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' || true) {
 	$returnData = null;
 
 	if ($f == "pushHike") {
-	    $returnData = $myHikes->pushHike($arr);
+	    $returnData = $myHikes->pushHike($api, $arr);
 	} else if ($f == "upgradeHike") {
 	    $updateArr["last_fetch_timestamp"] = $arr["last_fetch_timestamp"];
 	    $returnData = $myHikes->hearbeatHike($hike_id, $updateArr);

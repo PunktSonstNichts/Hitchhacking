@@ -4,7 +4,7 @@ include_once("../loader.php");
 
 set_time_limit(0);
 
-class driverThread {
+class driverThread extends Thread {
 
   private $client;
   private $connected;
@@ -16,30 +16,30 @@ class driverThread {
 
   private $myHikes;
 
-  public function __counstruct($client) {
+  public function __construct($client) {
     $this->client = $client;
-    $connected = 1;
-    $myHikes = new cHikes();
+    $this->connected = 1;
+    $this->myHikes = new cHikes();
   }
 
   public function run() {
     $output = "Test";
-    while($connected == 1) {
-      if(!$match) {
-        $msg = socket_read($client, 10000, PHP_NORMAL_READ) or die("Could not read message");
-        if($index == 0) {
-          list($first_lat, $first_long) = split(";", $msg);
-        } else if($index > 0) {
+    while($this->connected == 1) {
+      if(!$this->match) {
+        $msg = socket_read($this->client, 10000, PHP_NORMAL_READ) or die("Could not read message");
+        if($this->index == 0) {
+          list($this->first_lat, $this->first_long) = split(";", $msg);
+        } else if($this->index > 0) {
           list($lat, $long) = split(";", $msg);
-          $bearing = getMiddleValue($bearing, $getBearing($first_lat, $first_long, $lat, $long), $index); //use index as count
-          $hikers[][] = $myHikes->getHikerRequests($lat, $long);
+          $this->bearing = getMiddleValue($this->bearing, $this->getBearing($this->first_lat, $this->first_long, $lat, $long), $this->index); //use index as count
+          $hikers[][] = $this->myHikes->getHikerRequests($lat, $long);
           for($i = 0; $i < count($hikers); $i++) {
-            if(abs($hikers[$i]["destination_heading"] - $bearing) < 40) {
+            if(abs($hikers[$i]["destination_heading"] - $this->bearing) < 40) {
               // MATCH
             }
           }
         }
-        $index++;
+        $this->index++;
       }
     }
 
@@ -65,35 +65,36 @@ class driverThread {
    return (rad2deg(atan2($dLon, $dPhi)) + 360) % 360;
  }
 
- private function getMiddleValue($prevbearing, $currbearing, ++$count) {
-   return (($count-1)$prevbearing + 1 * $currbearing) / $count;
+ private function getMiddleValue($prevbearing, $currbearing, $count) {
+   return ((($count-1)*$prevbearing + 1 * $currbearing) / $count);
  }
 
 
 }
 
-public Socket {
+class Socket {
 
-  $host = "127.0.0.1";
-  $port = 1234;
-  $socket;
-  $result;
+  private $host = "10.232.29.59";
+  private $port = 1234;
+  private $socket;
+  private $result;
+  private $driver[];
 
 public function __construct() {
-  $socket = socket_create(AF_INET, SOCK_STREAM, SOL_TCP) or die("Could not create a new socket\n");
-  $result = socket_bind($socket, $host, $port) or die("Could not bind to socket\n");
-  $result = socket_listen($socket, SOMAXCONN) or die("Could not start listening");
+  $this->socket = socket_create(AF_INET, SOCK_STREAM, SOL_TCP) or die("Could not create a new socket\n");
+  $this->result = socket_bind($this->socket, $this->host, $this->port) or die("Could not bind to socket\n");
+  $this->result = socket_listen($this->socket, SOMAXCONN) or die("Could not start listening");
 }
 
 public function run() {
   while(true) {
-    $newClient = socket_accept($socket) or die("Could not accept incoming connection\n");
+    $newClient = socket_accept($this->socket) or die("Could not accept incoming connection\n");
     echo "Driver connected";
     $output = "Test";
     socket_write($newClient, $output."\n", strlen($output) + 1) or die("Could not write output\n");
 
-    // $driver = new driverThread($newClient);
-    // $driver->start();
+    $driver = new driverThread($newClient);
+    $driver->start();
   }
 }
 
