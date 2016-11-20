@@ -11,6 +11,10 @@ import android.widget.Toast;
 
 import com.landtanin.hitchhacker.databinding.ActivityEnterDetailBinding;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.IOException;
 
 import okhttp3.FormBody;
@@ -42,6 +46,7 @@ public class EnterDetailActivity extends AppCompatActivity {
                 connectDatabase();
 
                 Toast.makeText(EnterDetailActivity.this, "onClick", Toast.LENGTH_SHORT).show();
+                Log.d("API", strApiKey);
 
                 Intent objIntent = new Intent(EnterDetailActivity.this, driverOrHitchActivity.class);
                 objIntent.putExtra("api_key", strApiKey);
@@ -131,7 +136,9 @@ public class EnterDetailActivity extends AppCompatActivity {
                 Response response = null;
 
                 try {
+
                     response = JSONObtained.getInstance().newCall(JSONObtained.postRequest(myurl, formBody)).execute();
+
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -140,14 +147,37 @@ public class EnterDetailActivity extends AppCompatActivity {
                 Log.d("CONNECTDATABASE", String.valueOf(response));
 
                 try {
+
                     resultServer = response.body().string();
+
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
 
                 //TODO: get the API key
                 Log.d("RESULTSERVER", resultServer);
-                Toast.makeText(EnterDetailActivity.this, resultServer, Toast.LENGTH_SHORT).show();
+                try {
+
+                    JSONObject someJSONObj = null;
+//                    JSONObject apiJSONstr = new JSONObject(resultServer);
+
+
+
+                    JSONArray array = new JSONArray(resultServer);
+                    someJSONObj = array.getJSONObject(0);
+                    strApiKey = someJSONObj.getString("api");
+
+                    Log.d("APIKEY", strApiKey);
+//                    someJSONObj = apiJSONstr.getJSONObject();
+//                    strApiKey = someJSONObj.getString("api");
+
+
+
+                } catch (JSONException e) {
+
+                    e.printStackTrace();
+                }
+
 
                 return null;
             }

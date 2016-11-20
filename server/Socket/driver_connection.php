@@ -31,7 +31,7 @@ class driverThread {
           list($this->first_lat, $this->first_long) = split(";", $msg);
         } else if($this->index > 0) {
           list($lat, $long) = split(";", $msg);
-          $this->bearing = getMiddleValue($this->bearing, $this->getBearing($this->first_lat, $this->first_long, $lat, $long));
+          $this->bearing = getMiddleValue($this->bearing, $this->getBearing($this->first_lat, $this->first_long, $lat, $long), $this->index); //use index as count
           $hikers[][] = $this->myHikes->getHikerRequests($lat, $long);
           for($i = 0; $i < count($hikers); $i++) {
             if(abs($hikers[$i]["destination_heading"] - $this->bearing) < 40) {
@@ -65,8 +65,8 @@ class driverThread {
    return (rad2deg(atan2($dLon, $dPhi)) + 360) % 360;
  }
 
- private function getMiddleValue($value1, $value2) {
-   return ($value1 + $value2) / 2;
+ private function getMiddleValue($prevbearing, $currbearing, ++$count) {
+   return (($count-1)$prevbearing + 1 * $currbearing) / $count;
  }
 
 
