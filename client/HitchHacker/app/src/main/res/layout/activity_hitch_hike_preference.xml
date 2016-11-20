@@ -1,13 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:tools="http://schemas.android.com/tools"
-        tools:context="com.landtanin.hitchhacker.HitchHiker.HitchHikePreferenceActivity">
+
 <LinearLayout
 
     android:id="@+id/activity_hitch_hike_preference"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="com.landtanin.hitchhacker.HitchHiker.HitchHikePreferenceActivity"
     >
 
     <android.support.v7.widget.Toolbar
@@ -138,29 +139,25 @@
 
 
 
+
     </LinearLayout>
 
-    <TextView
-        android:id="@+id/latTxt"
-        android:layout_width="wrap_content"
+    <Button
+        android:id="@+id/recBtb"
+        android:layout_width="@dimen/login_signup_btn_length"
         android:layout_height="wrap_content"
-        android:layout_gravity="center_vertical"
-        android:textSize="18dp"
-        android:layout_marginRight="40dp"
-        android:textStyle="bold"
-        android:textColor="@color/colorBlack"/>
+        android:layout_gravity="center_horizontal"
+        android:text="Record"/>
 
-    <TextView
-        android:id="@+id/lngTxt"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_vertical"
-        android:textSize="18dp"
-        android:textStyle="bold"
-        android:textColor="@color/colorBlack"/>
 
+
+    <!--<fragment xmlns:android="http://schemas.android.com/apk/res/android"-->
+              <!--android:name="com.google.android.gms.maps.MapFragment"-->
+              <!--android:id="@+id/map"-->
+              <!--android:layout_width="match_parent"-->
+              <!--android:layout_height="match_parent"-->
+        <!--/>-->
 
 
 
 </LinearLayout>
-</layout>

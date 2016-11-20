@@ -2,7 +2,10 @@ package com.landtanin.hitchhacker.HitchHiker;
 
 import android.Manifest;
 import android.content.pm.PackageManager;
-import android.databinding.DataBindingUtil;
+import android.location.Location;
+import android.location.LocationManager;
+import android.media.MediaPlayer;
+import android.media.MediaRecorder;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -11,6 +14,10 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
+import android.widget.EditText;
+import android.widget.ImageButton;
+import android.widget.Switch;
+import android.widget.TextView;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
@@ -19,9 +26,9 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
 import com.landtanin.hitchhacker.JSONObtained;
 import com.landtanin.hitchhacker.R;
-import com.landtanin.hitchhacker.databinding.ActivityHitchHikePreferenceBinding;
 
 import org.json.JSONObject;
 
@@ -37,7 +44,7 @@ import static android.preference.PreferenceManager.getDefaultSharedPreferences;
 
 public class HitchHikePreferenceActivity extends AppCompatActivity implements OnMapReadyCallback, GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener {
 
-    ActivityHitchHikePreferenceBinding binding;
+//    ActivityHitchHikePreferenceBinding binding;
 
     private int seatCounter = 1;
 
@@ -49,7 +56,8 @@ public class HitchHikePreferenceActivity extends AppCompatActivity implements On
     private GoogleApiClient mGoogleApiClient;
     private GoogleMap map;
 
-    private android.location.Location mLastLocation;
+    private Location mLastLocation;
+
 
     private String strLat, strLong, strAccuracy, strBearing;
 
@@ -58,12 +66,31 @@ public class HitchHikePreferenceActivity extends AppCompatActivity implements On
 
     private float desHeading;
 
+    private LocationManager locationManager;
 
+    private TextView txtHitchDone;
+    private EditText destinationTxt;
+    TextView seatNumberTxt;
+    ImageButton minusBtn;
+
+    ImageButton plusBtn;
+    Switch swtch_secure;
+
+    //--- audio record----
+
+    private static final String LOG_TAG = "AudioRecordTest";
+    private static String mFileName = null;
+
+    private RecordButton mRecordButton = null;
+    private MediaRecorder mRecorder = null;
+
+    private PlayButton   mPlayButton = null;
+    private MediaPlayer mPlayer = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        binding = DataBindingUtil.setContentView(this, R.layout.activity_hitch_hike_preference);
+        setContentView(R.layout.activity_hitch_hike_preference);
 
         // map
         mGoogleApiClient = new GoogleApiClient.Builder(this)
@@ -72,34 +99,39 @@ public class HitchHikePreferenceActivity extends AppCompatActivity implements On
                 .addApi(LocationServices.API)
                 .build();
 
-////        MapFragment mapFragment = (MapFragment) getFragmentManager().findFragmentById(R.id.map);
-////        mapFragment.getMapAsync(this);
+//        MapFragment mapFragment = (MapFragment) getFragmentManager().findFragmentById(R.id.map);
+//        mapFragment.getMapAsync(this);
+
+        txtHitchDone = (TextView) findViewById(R.id.txtHitchDone);
+        destinationTxt = (EditText) findViewById(R.id.destination_txt);
+        seatNumberTxt = (TextView) findViewById(R.id.seat_number_txt);
+        minusBtn = (ImageButton) findViewById(R.id.minusBtn);
+        plusBtn = (ImageButton) findViewById(R.id.plusBtn);
+        swtch_secure = (Switch) findViewById(R.id.swtch_secure);
 
 
-
-
-        binding.minusBtn.setOnClickListener(new View.OnClickListener() {
+        minusBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if (seatCounter > 1) seatCounter--;
                 else seatCounter = 1;
 
-                binding.seatNumberTxt.setText(String.valueOf(seatCounter));
+                seatNumberTxt.setText(String.valueOf(seatCounter));
             }
         });
 
-        binding.plusBtn.setOnClickListener(new View.OnClickListener() {
+        plusBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if (seatCounter < 7) seatCounter++;
                 else seatCounter = 7;
 
-                binding.seatNumberTxt.setText(String.valueOf(seatCounter));
+                seatNumberTxt.setText(String.valueOf(seatCounter));
             }
 
         });
 
-        binding.txtHitchDone.setOnClickListener(new View.OnClickListener() {
+        txtHitchDone.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
@@ -116,11 +148,11 @@ public class HitchHikePreferenceActivity extends AppCompatActivity implements On
         final HttpUrl myurl = HttpUrl.parse(JSONObtained.getAbsoluteUrl("accessHikes.php")).newBuilder().build();
 
         apiKey = getDefaultSharedPreferences(getBaseContext()).getString("shareAPI", "defaultStringIfNothingFound");
-        amountOfSeat = binding.seatNumberTxt.getText().toString();
+        amountOfSeat = seatNumberTxt.getText().toString();
 
-        if (binding.swtchSecure.getText().equals("off")) {
+        if (swtch_secure.getText().equals("off")) {
             swtchstatus = "0";
-        } else if (binding.swtchSecure.getText().equals("on")) {
+        } else if (swtch_secure.getText().equals("on")) {
             swtchstatus = "1";
         }
         swtchstatus = "1"; // security mode on
@@ -132,23 +164,23 @@ public class HitchHikePreferenceActivity extends AppCompatActivity implements On
 //        GeoPoint newLoc = new GeoPoint(51.528308, -0.122225);
 //        Barcode.GeoPoint desLoc = new Barcode.GeoPoint(1,51.528308, -0.122225);
 
-        android.location.Location desLoc = new android.location.Location("London");
+        Location desLoc = new Location("London");
         desLoc.setLatitude(51.528308);
         desLoc.setLongitude(-0.122225);
 
-        Log.d("TellMeCurrentLoc", String.valueOf(mLastLocation));
 
 //        desHeading = mLastLocation.bearingTo(desLoc);
 
         // get Api key
-
+        strLat = "55";
+        strLong = "0";
 
         final RequestBody formBody = new FormBody.Builder()
                 .add("f", "pushHike")
                 .add("api", apiKey)
                 .add("needed_seats", amountOfSeat)
                 .add("security_mode", swtchstatus)
-                .add("start_timestamp", String.valueOf(timestamp))
+                .add("start_timestamp", String.valueOf(timestamp.getTime()))
                 .add("destination_lat", String.valueOf(51.528308))
                 .add("destination_lon", String.valueOf(-0.122225))
                 .add("destination_heading", String.valueOf(desHeading))
@@ -238,22 +270,33 @@ public class HitchHikePreferenceActivity extends AppCompatActivity implements On
         if (mLastLocation != null) {
 
             strLat = String.valueOf(mLastLocation.getLatitude());
+            Log.d("LAT", strLat);
             strLong = String.valueOf(mLastLocation.getLongitude());
 
+            Log.d("Lng", strLong);
         }
 
         updateLocation();
+        addEvents();
+        
+    }
+
+    private void addEvents() {
+        MarkerOptions marker = new MarkerOptions();
+        marker.title("Sample event");
+        marker.position(new LatLng(52.941190, -1.189594)); // Example event market
+        map.addMarker(marker);
 
     }
 
     @Override
     public void onConnectionSuspended(int i) {
-
+        Log.d("LocationPractice", "SUSPENDED");
     }
 
     @Override
     public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
-
+        Log.d("LocationPractice", "FAILED");
     }
 
     @Override
@@ -262,15 +305,10 @@ public class HitchHikePreferenceActivity extends AppCompatActivity implements On
         map = googleMap;
 
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            // TODO: Consider calling
-            //    ActivityCompat#requestPermissions
-            // here to request the missing permissions, and then overriding
-            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-            //                                          int[] grantResults)
-            // to handle the case where the user grants the permission. See the documentation
-            // for ActivityCompat#requestPermissions for more details.
+        
             return;
         }
+        
         googleMap.setMyLocationEnabled(true);
         updateLocation();
 
@@ -283,7 +321,7 @@ public class HitchHikePreferenceActivity extends AppCompatActivity implements On
 
         if (mGoogleApiClient.isConnected()) {
 
-            android.location.Location location = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
+            Location location = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
 
             if (map != null) {
                 map.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(location.getLatitude(), location.getLongitude()), 17));
@@ -291,5 +329,9 @@ public class HitchHikePreferenceActivity extends AppCompatActivity implements On
             }
         }
     }
+
+
+
+
 }
 

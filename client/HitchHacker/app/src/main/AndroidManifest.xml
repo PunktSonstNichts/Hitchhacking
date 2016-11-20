@@ -5,8 +5,8 @@
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
     <uses-permission android:name="android.permission.INTERNET"/>
-    <uses-library android:name="com.google.android.maps"/>
 
+    <uses-library android:name="com.google.android.maps"/>
 
     <application
         android:allowBackup="true"
@@ -14,7 +14,6 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyBjVO3eaX1ckpZ5WBaNcX0EwYBzKDalgrU"/>
@@ -33,6 +32,8 @@
         <activity android:name=".Driver.DriverSettingActivity">
         </activity>
         <activity android:name=".HitchHiker.HitchHikePreferenceActivity">
+        </activity>
+        <activity android:name=".MainActivity">
         </activity>
     </application>
 

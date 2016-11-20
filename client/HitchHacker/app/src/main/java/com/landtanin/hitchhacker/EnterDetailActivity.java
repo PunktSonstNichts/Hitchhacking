@@ -38,6 +38,8 @@ public class EnterDetailActivity extends AppCompatActivity {
         strUserName = String.valueOf(binding.editTxtUsrName.getText());
         strPassWord = String.valueOf(binding.editTxtPassWord.getText());
 
+
+
         binding.okBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
