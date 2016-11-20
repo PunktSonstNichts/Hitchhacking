@@ -1,6 +1,6 @@
 package com.landtanin.hitchhacker.Driver;
 
-import android.content.DialogInterface;
+import android.content.Intent;
 import android.location.Location;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -8,6 +8,8 @@ import android.preference.PreferenceManager;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.View;
+import android.widget.TextView;
 
 import com.landtanin.hitchhacker.JSONObtained;
 import com.landtanin.hitchhacker.R;
@@ -17,7 +19,6 @@ import org.json.JSONObject;
 
 import java.io.IOException;
 import java.sql.Timestamp;
-import java.util.concurrent.TimeUnit;
 
 import okhttp3.FormBody;
 import okhttp3.HttpUrl;
@@ -32,6 +33,8 @@ public class DriverSettingActivity extends AppCompatActivity {
     String apiKey = "";
     AlertDialog.Builder mAlertDialog;
 
+    TextView txtDriverDone;
+
     private JSONObject apiJSONstr;
 
     @Override
@@ -39,69 +42,81 @@ public class DriverSettingActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_driver_setting);
 
+        txtDriverDone = (TextView) findViewById(R.id.txtDriverDone);
+
         apiKey = PreferenceManager.getDefaultSharedPreferences(getBaseContext()).getString("shareAPI","defaultStringIfNothingFound");
 
-        while(true){
-        connectDatabase();
+        txtDriverDone.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
 
-            //TODO :A;DLFKHJA;FDHALKSJFHA;SFH;AKSF;AKSJFH;KASH
-            new Thread(new Runnable() {
-                @Override
-                public void run()
-                {
-                    // do the thing that takes a long time
+                Intent objIntent = new Intent(DriverSettingActivity.this, DriverModeActivity.class);
+                startActivity(objIntent);
 
-                    try {
-                        TimeUnit.SECONDS.sleep(10);
+            }
+        });
 
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
-
-                    runOnUiThread(new Runnable() {
-                        @Override
-                        public void run()
-                        {
-
-                            // show Pop-up
-                            mAlertDialog = new AlertDialog.Builder(DriverSettingActivity.this);
-
-                            mAlertDialog.setMessage("A new person matched").setTitle("Woohoo!");
-
-                            mAlertDialog.setPositiveButton("ACCEPT", new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface dialogInterface, int i) {
-
-
-
-                                }
-                            });
-
-                            mAlertDialog.setNegativeButton("DECLINE", new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface dialogInterface, int i) {
-
-
-
-                                }
-                            });
-
-                            AlertDialog dialog = mAlertDialog.create();
-
-//                            if (apiJSONstr!=null) {
-//                                dialog.show();
-//                            }
+//        while(apiJSONstr!=null){
+//        connectDatabase();
 //
-
-                        }
-
-                    });
-
-                }
-
-            }).start();
-
-        }
+//            //TODO :A;DLFKHJA;FDHALKSJFHA;SFH;AKSF;AKSJFH;KASH
+//            new Thread(new Runnable() {
+//                @Override
+//                public void run()
+//                {
+//                    // do the thing that takes a long time
+//
+//                    try {
+//                        TimeUnit.SECONDS.sleep(10);
+//
+//                    } catch (InterruptedException e) {
+//                        e.printStackTrace();
+//                    }
+//
+//                    runOnUiThread(new Runnable() {
+//                        @Override
+//                        public void run()
+//                        {
+//
+//                            // show Pop-up
+//                            mAlertDialog = new AlertDialog.Builder(DriverSettingActivity.this);
+//
+//                            mAlertDialog.setMessage("A new person matched").setTitle("Woohoo!");
+//
+//                            mAlertDialog.setPositiveButton("ACCEPT", new DialogInterface.OnClickListener() {
+//                                @Override
+//                                public void onClick(DialogInterface dialogInterface, int i) {
+//
+//
+//
+//                                }
+//                            });
+//
+//                            mAlertDialog.setNegativeButton("DECLINE", new DialogInterface.OnClickListener() {
+//                                @Override
+//                                public void onClick(DialogInterface dialogInterface, int i) {
+//
+//
+//
+//                                }
+//                            });
+//
+//                            AlertDialog dialog = mAlertDialog.create();
+//
+////                            if (apiJSONstr!=null) {
+////                                dialog.show();
+////                            }
+////
+//
+//                        }
+//
+//                    });
+//
+//                }
+//
+//            }).start();
+//
+//        }
 
     }
 

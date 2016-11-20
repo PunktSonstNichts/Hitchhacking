@@ -43,7 +43,7 @@
                 android:layout_height="wrap_content"/>
 
             <TextView
-                android:id="@+id/txtEditOrSave"
+                android:id="@+id/txtDriverDone"
                 android:layout_width="0dp"
                 android:textAlignment="center"
                 android:layout_gravity="center_horizontal|center_vertical"
