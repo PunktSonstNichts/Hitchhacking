@@ -50,11 +50,15 @@ public class RecordVoice2 extends Activity implements View.OnClickListener, OnCo
         playRecording.setOnClickListener(this);
         finishButton.setOnClickListener(this);
 
+        recorder = new MediaRecorder();
+        recorder.reset();
+
         stopRecording.setEnabled(false);
         playRecording.setEnabled(false);
     }
 
     public void onClick(View v) {
+        recorder.reset();
         if (v == finishButton) {
             finish();
         } else if (v == stopRecording) {
@@ -83,16 +87,16 @@ public class RecordVoice2 extends Activity implements View.OnClickListener, OnCo
             startRecording.setEnabled(true);
 
         } else if (v == startRecording) {
-            recorder = new MediaRecorder();
             recorder.setAudioSource(MediaRecorder.AudioSource.MIC);
             recorder.setOutputFormat(MediaRecorder.OutputFormat.THREE_GPP);
             recorder.setAudioEncoder(MediaRecorder.AudioEncoder.AMR_NB);
 
-            File path = new File(Environment.getExternalStorageDirectory().getAbsolutePath()+ "/files/");
-            path.mkdirs();
+            File path = new File(Environment.getExternalStorageDirectory().getAbsolutePath()+"/dsf.3gp");
+            Log.d(Environment.getExternalStorageDirectory().getAbsolutePath(), "Yea!");
             try {
-                audioFile = File.createTempFile("recording", ".3gp", path);
-                recorder.setOutputFile(audioFile.getAbsolutePath());
+                //audioFile = File.createTempFile("recordings123", ".3gp", path);
+                Log.d(path.getAbsolutePath(), "Works!");
+                recorder.setOutputFile(path.getAbsolutePath());
                 recorder.prepare();
             } catch (Exception e) {
                 throw new RuntimeException(

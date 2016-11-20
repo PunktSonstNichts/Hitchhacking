@@ -78,7 +78,6 @@ class Socket {
   private $port = 1234;
   private $socket;
   private $result;
-  private $driver[];
 
 public function __construct() {
   $this->socket = socket_create(AF_INET, SOCK_STREAM, SOL_TCP) or die("Could not create a new socket\n");
